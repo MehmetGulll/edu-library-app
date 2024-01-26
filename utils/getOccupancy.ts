@@ -38,7 +38,7 @@ const getOccupancy: GetOccupancy = async (date) => {
 
     return { total, currentOccupancy, capacity }
   } catch (error) {
-    console.log("Error", error)
+    console.error("Error", error)
     return { total: "0", currentOccupancy: "0", capacity: "0" }
   }
 }
