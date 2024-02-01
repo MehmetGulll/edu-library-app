@@ -12,15 +12,9 @@ type GetOccupancy = (date: DateFormat) => Promise<Occupancy>
 
 const getOccupancy: GetOccupancy = async (date) => {
   try {
-    const response = await fetch(url + `?date_baslama=${date}`, {
-      next: {
-        revalidate:
-          date === new Date().toLocaleDateString("tr-TR")
-            ? 60
-            : Number.MAX_VALUE,
-      },
-    })
+    const response = await fetch(url + `?date_baslama=${date}`, {})
     const html = await response.text()
+    console.log("🚀 ~ constgetOccupancy:GetOccupancy= ~ html:", html)
 
     const parsedHtml = html
       .split('<div class="col-md-4" align="center" style="color:#336699;">')[1]
@@ -66,10 +60,16 @@ const getOccupancyByDateRange: GetOccupancyByDateRange = (start, end) => {
     dateRange.push(new Date(startDate).toLocaleDateString("tr-TR"))
     startDate.setDate(startDate.getDate() + 1)
   }
-
+  let loading = 0
   return Promise.all(
     dateRange.map(async (date) => {
-      const occupancy = await getOccupancy(date as DateFormat)
+      const occupancy = await getOccupancy(date as DateFormat).then(
+        (occupancy) => {
+          console.log(`Fetching ${loading}/${dateRange.length}`)
+          loading++
+          return occupancy
+        }
+      )
       return { date: date as DateFormat, occupancy }
     })
   )
