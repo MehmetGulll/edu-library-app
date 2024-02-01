@@ -6,16 +6,27 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate": "graphql-codegen --config codegen.yml --require dotenv/config"
   },
   "dependencies": {
+    "@apollo/client": "^3.8.10",
     "apexcharts": "^3.45.2",
+    "graphql": "^16.8.1",
     "next": "14.1.0",
     "react": "^18",
     "react-apexcharts": "^1.4.1",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "tqdm": "^2.0.3",
+    "ts-tqdm": "^0.8.6"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/fragment-matcher": "^5.0.0",
+    "@graphql-codegen/introspection": "^4.0.0",
+    "@graphql-codegen/typescript": "^4.0.1",
+    "@graphql-codegen/typescript-operations": "^4.0.1",
+    "@graphql-codegen/typescript-react-apollo": "^4.1.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

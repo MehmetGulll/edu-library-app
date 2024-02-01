@@ -1,0 +1,17 @@
+schema:
+  - ${GRAPHQL_ENDPOINT}:
+      headers:
+        "x-hasura-admin-secret": ${GRAPHQL_AUTH}
+documents: "src/**/*.ts"
+generates:
+  src/generated/graphql.tsx:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+      - "fragment-matcher"
+    config:
+      skipTypename: false
+      withHooks: true
+      withHOC: false
+      withComponent: false
