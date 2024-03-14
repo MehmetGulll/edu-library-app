@@ -1,6 +1,7 @@
 import DateCard from "@/components/DateCard"
 import Chart from "@/components/Chart"
 import { getOccupancyByDateRange } from "../../utils/getOccupancy"
+import Navbar from "@/components/Navbar"
 import OpenWeather from "@/components/OpenWeather"
 
 export default async function Home() {
@@ -8,6 +9,7 @@ export default async function Home() {
 
   return (
     <div className="flex justify-center p-8 flex-col gap-4">
+      <Navbar/>
       <OpenWeather/>
       <Chart
         height={350}
