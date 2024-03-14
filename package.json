@@ -10,8 +10,6 @@
   },
   "dependencies": {
     "apexcharts": "^3.45.2",
-    "axios": "^1.6.7",
-    "eslint-plugin-react-hooks": "^5.0.0-canary-a870b2d54-20240314",
     "next": "14.1.0",
     "react": "^18",
     "react-apexcharts": "^1.4.1",
@@ -25,6 +23,8 @@
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
     "postcss": "^8",
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.12",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
   }
