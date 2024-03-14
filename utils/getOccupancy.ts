@@ -1,6 +1,6 @@
 const url = "https://akillikart.deu.edu.tr/kutuphane/"
 
-type DateFormat = `${number}.${number}.${number}`
+export type DateFormat = `${number}.${number}.${number}`
 
 interface Occupancy {
   total: string

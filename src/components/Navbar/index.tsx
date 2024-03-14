@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 const Navbar = () => {
   return (
@@ -32,6 +32,6 @@ const Navbar = () => {
         Duyurular
       </a>
     </div>
-  );
-};
-export default Navbar;
+  )
+}
+export default Navbar
