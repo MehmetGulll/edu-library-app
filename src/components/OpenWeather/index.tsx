@@ -9,7 +9,6 @@ const OpenWeather = () => {
   const [cityLon, setCityLon] = useState();
   const [temp,setTemp] = useState("");
   useEffect(() => {
-    console.log("selam abi");
     const fetchCityLocation = async () => {
       try {
         const response = await axios.get(
@@ -28,12 +27,9 @@ const OpenWeather = () => {
     if (cityLat && cityLon) {
       const openWeather = async () => {
         try {
-            console.log(cityLat);
-            console.log(cityLon);
           const response = await axios.get(
             `${config.openWeather}${cityLat}&lon=${cityLon}&appid=${config.apikey}`
           );
-          console.log(response.data);
           let centigrade = (response.data.main.temp - 273).toFixed(0);
           setTemp(centigrade);
         } catch (error) {
