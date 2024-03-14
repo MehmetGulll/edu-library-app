@@ -4,7 +4,10 @@ import OpenWeather from '../OpenWeather';
 const Navbar = () => {
   return (
     <div>
+      <div className='flex flex-row justify-end gap-10'>
+        <div>Çalışma Saatleri</div>
       <OpenWeather />
+      </div>
       <div className='flex flex-row justify-end space-x-8 bg-silver_lake_blue-300 p-6'>
         <a
           href='https://debis.deu.edu.tr/debis.php'
