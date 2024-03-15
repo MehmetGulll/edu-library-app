@@ -1,12 +1,12 @@
-import DateCard from '@/components/DateCard';
-import Chart from '@/components/Chart';
-import { getOccupancyByDateRange } from '../../utils/getOccupancy';
-import { getBorrow } from '../api/index';
+import DateCard from "@/components/DateCard";
+import Chart from "@/components/Chart";
+import { getOccupancyByDateRange } from "../../utils/getOccupancy";
+import { getBorrow } from "../api/index";
 
 export default async function Home() {
   const occupancyArr = await getOccupancyByDateRange(
-    '23.01.2024',
-    '26.01.2024'
+    "23.01.2024",
+    "26.01.2024"
   );
 
   const data = await getBorrow();
@@ -38,7 +38,7 @@ export default async function Home() {
     data: groupedByCategory[category].length,
   }));
   let otherCategory = {
-    name: 'Diğer',
+    name: "Diğer",
     data: 0,
   };
   categoryCounts = categoryCounts.filter((category) => {
@@ -54,27 +54,29 @@ export default async function Home() {
   }
 
   return (
-    <div className='flex flex-col justify-center gap-4 p-8'>
-      <Chart
-        height={350}
-        type='line'
-        options={{
-          colors: ['#49dcb1', '#daf8ef'],
-          xaxis: {
-            categories: occupancyArr.map((item) => item.date),
-            tooltip: {
-              enabled: false,
+    <div className='p-4'>
+      <div className=' mb-8 flex flex-col justify-center gap-4 rounded-lg border border-gray-300 p-8 shadow-md'>
+        <Chart
+          height={350}
+          type='line'
+          options={{
+            colors: ["#49dcb1", "#daf8ef"],
+            xaxis: {
+              categories: occupancyArr.map((item) => item.date),
+              tooltip: {
+                enabled: false,
+              },
             },
-          },
-        }}
-        series={[
-          {
-            name: 'Total Occupancy',
-            data: occupancyArr.map((item) => Number(item.occupancy.total)),
-          },
-        ]}
-        width='100%'
-      />
+          }}
+          series={[
+            {
+              name: "Total Occupancy",
+              data: occupancyArr.map((item) => Number(item.occupancy.total)),
+            },
+          ]}
+          width='100%'
+        />
+      </div>
       <div className='container flex gap-2'>
         {occupancyArr.map((item) => (
           <DateCard {...item} key={item.date} />
