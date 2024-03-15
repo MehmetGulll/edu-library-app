@@ -1,8 +1,10 @@
 import DateCard from '@/components/DateCard';
 import Chart from '@/components/Chart';
 import { getOccupancyByDateRange } from '../../utils/getOccupancy';
+import Books,{getStaticProps} from './pages/index'
 
 export default async function Home() {
+  const { props: { books: books  } }= await getStaticProps();
   const occupancyArr = await getOccupancyByDateRange(
     '23.01.2024',
     '26.01.2024'
@@ -34,6 +36,7 @@ export default async function Home() {
           <DateCard {...item} key={item.date} />
         ))}
       </div>
+      <Books books={books}/>
     </div>
   );
 }
