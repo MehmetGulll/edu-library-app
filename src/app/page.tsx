@@ -26,7 +26,6 @@ export default async function Home() {
     return `${day}.${month}.${year}`;
   });
   const counts = Object.values(groupedByDate).map((items) => items.length);
-  console.log(dates, counts);
 
   const groupedByCategory = data.borrow.reduce(
     (acc: { [key: string]: any[] }, item) => {
