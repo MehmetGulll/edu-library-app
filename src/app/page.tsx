@@ -1,12 +1,12 @@
-import DateCard from '@/components/DateCard';
-import Chart from '@/components/Chart';
-import { getOccupancyByDateRange } from '../../utils/getOccupancy';
-import { getBorrow } from '../api/index';
+import DateCard from "@/components/DateCard";
+import Chart from "@/components/Chart";
+import { getOccupancyByDateRange } from "../../utils/getOccupancy";
+import { getBorrow } from "../api/index";
 
 export default async function Home() {
   const occupancyArr = await getOccupancyByDateRange(
-    '23.01.2024',
-    '26.01.2024'
+    "23.01.2024",
+    "26.01.2024"
   );
 
   const data = await getBorrow();
@@ -45,7 +45,7 @@ export default async function Home() {
     data: groupedByCategory[category].length,
   }));
   let otherCategory = {
-    name: 'Diğer',
+    name: "Diğer",
     data: 0,
   };
   categoryCounts = categoryCounts.filter((category) => {
@@ -66,7 +66,7 @@ export default async function Home() {
         height={350}
         type='line'
         options={{
-          colors: ['#49dcb1', '#000000'],
+          colors: ['#49dcb1', '#daf8ef'],
           xaxis: {
             categories: dates,
             tooltip: {
@@ -76,8 +76,6 @@ export default async function Home() {
           dataLabels: {
             enabled: false,
           },
-          
-        
           yaxis: [{
             title: {
               text: 'Total Occupancy',
@@ -93,7 +91,6 @@ export default async function Home() {
             size: 5
           },
         }}
-        
         series={[
           {
             name: 'Total Rent Books ',
