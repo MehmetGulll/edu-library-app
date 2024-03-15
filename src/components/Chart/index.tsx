@@ -23,7 +23,7 @@ type ChartType =
 
 interface ChartProps {
   type: ChartType
-  series?: ApexAxisChartSeries
+  series?: ApexAxisChartSeries | number[]
   options?: ApexOptions
   width?: string | number
   height?: string | number
@@ -53,7 +53,6 @@ const defaultOptions: ApexOptions = {
     curve: "smooth",
   },
   title: {
-    text: "Occupancy Chart",
     align: "center",
   },
   grid: {
@@ -62,7 +61,6 @@ const defaultOptions: ApexOptions = {
       opacity: 0.5,
     },
   },
-  colors: ["#49dcb1", "#daf8ef"],
 }
 
 const Chart = ({ ...props }: ChartProps) => {

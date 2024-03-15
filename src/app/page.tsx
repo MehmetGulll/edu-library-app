@@ -1,8 +1,7 @@
 import DateCard from '@/components/DateCard';
 import Chart from '@/components/Chart';
 import { getOccupancyByDateRange } from '../../utils/getOccupancy';
-import { getProductsByCategory } from '@/api';
-import { useGetBorrowQuery } from '@/generated/graphql';
+import { getBorrow } from '../api/index';
 
 export default async function Home() {
   const occupancyArr = await getOccupancyByDateRange(
@@ -10,7 +9,7 @@ export default async function Home() {
     '26.01.2024'
   );
 
-  const data = await getProductsByCategory();
+  const data = await getBorrow();
 
   const groupedByDate = data.borrow.reduce(
     (acc: { [key: string]: any[] }, item) => {
@@ -22,6 +21,37 @@ export default async function Home() {
     },
     {}
   );
+  const groupedByCategory = data.borrow.reduce(
+    (acc: { [key: string]: any[] }, item) => {
+      if (!acc[item.category as keyof typeof acc]) {
+        acc[item.category] = [];
+      }
+      acc[item.category].push(item);
+      return acc;
+    },
+    {}
+  );
+  const totalDataCount = data.borrow.length;
+  const threshold = 0.03;
+  let categoryCounts = Object.keys(groupedByCategory).map((category) => ({
+    name: category,
+    data: groupedByCategory[category].length,
+  }));
+  let otherCategory = {
+    name: 'Diğer',
+    data: 0,
+  };
+  categoryCounts = categoryCounts.filter((category) => {
+    const ratio = category.data / totalDataCount;
+    if (ratio < threshold) {
+      otherCategory.data += category.data;
+      return false;
+    }
+    return true;
+  });
+  if (otherCategory.data > 0) {
+    categoryCounts.push(otherCategory);
+  }
 
   return (
     <div className='flex flex-col justify-center gap-4 p-8'>
@@ -29,6 +59,7 @@ export default async function Home() {
         height={350}
         type='line'
         options={{
+          colors: ['#49dcb1', '#daf8ef'],
           xaxis: {
             categories: occupancyArr.map((item) => item.date),
             tooltip: {
@@ -49,6 +80,13 @@ export default async function Home() {
           <DateCard {...item} key={item.date} />
         ))}
       </div>
+      <Chart
+        width={1300}
+        height={365}
+        type='pie'
+        options={{ labels: categoryCounts.map((item) => item.name) }}
+        series={categoryCounts.map((item) => item.data)}
+      />
     </div>
   );
 }
