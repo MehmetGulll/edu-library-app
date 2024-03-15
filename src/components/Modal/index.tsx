@@ -32,14 +32,14 @@ const Modal: FC<ModalProps> = ({ opened, onClose, children }) => {
       className={`
       fixed
       left-0
-    top-0 z-10 h-screen w-screen min-w-10 overflow-hidden overflow-y-auto transition-opacity duration-300 ease-in-out ${opened ? "opacity-100" : "opacity-0"}`}
+    top-0 z-10 h-screen w-screen min-w-10 transition-opacity duration-300 ease-in-out  ${opened ? "visible opacity-100" : "invisible opacity-0"}`}
       role='dialog'
     >
+      <div className='pointer-events-none absolute left-0 top-0 h-full w-full bg-[#0f172acc] backdrop-blur-sm ' />
       <div
-        className='pointer-events-none absolute left-0 top-0 h-full w-full bg-[#0f172acc] backdrop-blur-sm '
+        className='flex h-full w-full items-center justify-center'
         onClick={onClose}
-      />
-      <div className='flex h-full w-full items-center justify-center'>
+      >
         <div className='relative'>
           <div className='min-w-96 rounded-xl bg-white  p-6 shadow-lg'>
             {children}
