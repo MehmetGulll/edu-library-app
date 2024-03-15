@@ -4,6 +4,8 @@ import OpenWeather from '../OpenWeather';
 const Navbar = () => {
   return (
     <div>
+      <div className='flex flex-row justify-end gap-10'>
+        <div>Çalışma Saatleri</div>
       <OpenWeather />
       <div className='bg-light_blue-900 flex flex-row justify-end space-x-8 border-y p-6'>
         <a
