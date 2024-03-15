@@ -59,10 +59,6 @@ export default async function Home() {
     categoryCounts.push(otherCategory);
   }
 
-  if (otherCategory.data > 0) {
-    categoryCounts.push(otherCategory);
-  }
-
   return (
     <div className='p-4'>
       <div className=' mb-8 flex flex-col justify-center gap-4 rounded-lg border border-gray-300 p-8 shadow-md'>
@@ -72,7 +68,7 @@ export default async function Home() {
               height={350}
               type='line'
               options={{
-                colors: ["#49dcb1", "#daf8ef"],
+                colors: ["#49dcb1", "#000000"],
                 xaxis: {
                   categories: dates,
                   tooltip: {
@@ -132,13 +128,6 @@ export default async function Home() {
           <DateCard {...item} key={item.date} />
         ))}
       </div>
-      <Chart
-        width={1300}
-        height={365}
-        type='pie'
-        options={{ labels: categoryCounts.map((item) => item.name) }}
-        series={categoryCounts.map((item) => item.data)}
-      />
     </div>
   );
 }
