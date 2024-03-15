@@ -1,11 +1,26 @@
 import DateCard from '@/components/DateCard';
 import Chart from '@/components/Chart';
 import { getOccupancyByDateRange } from '../../utils/getOccupancy';
+import { getProductsByCategory } from '@/api';
+import { useGetBorrowQuery } from '@/generated/graphql';
 
 export default async function Home() {
   const occupancyArr = await getOccupancyByDateRange(
     '23.01.2024',
     '26.01.2024'
+  );
+
+  const data = await getProductsByCategory();
+
+  const groupedByDate = data.borrow.reduce(
+    (acc: { [key: string]: any[] }, item) => {
+      if (!acc[item.date as keyof typeof acc]) {
+        acc[item.date] = [];
+      }
+      acc[item.date].push(item);
+      return acc;
+    },
+    {}
   );
 
   return (
