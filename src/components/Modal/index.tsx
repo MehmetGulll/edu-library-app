@@ -1,25 +1,57 @@
-import React, { ReactNode, FC } from 'react';
+"use client";
+import IconX from "@/assets/icons/IconX";
+import React, { ReactNode, FC, useEffect } from "react";
 
 interface ModalProps {
-  isOpen: boolean;
+  opened: boolean;
   onClose: () => void;
   children: ReactNode;
 }
 
-const Modal: FC<ModalProps> = ({ isOpen, onClose, children }) => {
-  if (!isOpen) return null;
+const Modal: FC<ModalProps> = ({ opened, onClose, children }) => {
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+
+    if (opened) {
+      window.addEventListener("keydown", handleEscape);
+      document.body.style.overflow = "hidden";
+    }
+
+    return () => {
+      window.removeEventListener("keydown", handleEscape);
+      document.body.style.overflow = "auto";
+    };
+  }, [opened, onClose]);
 
   return (
-    <div className='fixed inset-0 z-10 overflow-y-auto'>
-      <div className='bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4'>{children}</div>
-      <div className='bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6'>
-        <button
-          type='button'
-          className='mt-3 inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:mt-0 sm:w-auto sm:text-sm'
-          onClick={onClose}
-        >
-          Kapat
-        </button>
+    <div
+      className={`
+      fixed
+      left-0
+    top-0 z-10 h-screen w-screen min-w-10 overflow-hidden overflow-y-auto transition-opacity duration-300 ease-in-out ${opened ? "opacity-100" : "opacity-0"}`}
+      role='dialog'
+    >
+      <div
+        className='pointer-events-none absolute left-0 top-0 h-full w-full bg-[#0f172acc] backdrop-blur-sm '
+        onClick={onClose}
+      />
+      <div className='flex h-full w-full items-center justify-center'>
+        <div className='relative'>
+          <div className='min-w-96 rounded-xl bg-white  p-6 shadow-lg'>
+            {children}
+          </div>
+          <button
+            type='button'
+            className='absolute right-2 top-2'
+            onClick={onClose}
+          >
+            <IconX />
+          </button>
+        </div>
       </div>
     </div>
   );
