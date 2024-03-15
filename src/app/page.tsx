@@ -21,6 +21,13 @@ export default async function Home() {
     },
     {}
   );
+  const dates = Object.keys(groupedByDate).map((dateStr) => {
+    const [year, month, day] = dateStr.split('-');
+    return `${day}.${month}.${year}`;
+  });
+  const counts = Object.values(groupedByDate).map((items) => items.length);
+  console.log(dates, counts);
+
   const groupedByCategory = data.borrow.reduce(
     (acc: { [key: string]: any[] }, item) => {
       if (!acc[item.category as keyof typeof acc]) {
@@ -59,15 +66,39 @@ export default async function Home() {
         height={350}
         type='line'
         options={{
-          colors: ['#49dcb1', '#daf8ef'],
+          colors: ['#49dcb1', '#000000'],
           xaxis: {
-            categories: occupancyArr.map((item) => item.date),
+            categories: dates,
             tooltip: {
               enabled: false,
             },
           },
+          dataLabels: {
+            enabled: false,
+          },
+          
+        
+          yaxis: [{
+            title: {
+              text: 'Total Occupancy',
+            },
+          
+          }, {
+            opposite: true,
+            title: {
+              text: 'Total Borrow Books'
+            }
+          }],
+          markers: {
+            size: 5
+          },
         }}
+        
         series={[
+          {
+            name: 'Total Rent Books ',
+            data: counts,
+          },
           {
             name: 'Total Occupancy',
             data: occupancyArr.map((item) => Number(item.occupancy.total)),
