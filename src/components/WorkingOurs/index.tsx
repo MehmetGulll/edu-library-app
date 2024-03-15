@@ -1,6 +1,6 @@
-'use client';
-import React, { useState } from 'react';
-import Modal from '../Modal';
+"use client";
+import React, { useState } from "react";
+import Modal from "../Modal";
 
 const WorkingOurs = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,11 +11,11 @@ const WorkingOurs = () => {
     setIsOpen(false);
   };
   return (
-    <div>
+    <>
       <div onClick={handleOpenModal} className='cursor-pointer'>
-        Çalışma Saatleri
+        <div>Çalışma Saatleri</div>
       </div>
-      <Modal isOpen={isOpen} onClose={handleCloseModal}>
+      <Modal opened={isOpen} onClose={handleCloseModal}>
         <table className='w-full table-auto text-center'>
           <tr>
             <th className='px-4 py-2'>S.NO</th>
@@ -63,7 +63,9 @@ const WorkingOurs = () => {
           </tr>
           <tr>
             <td className='border px-4 py-2'>7</td>
-            <td className='border px-4 py-2'>Deniz Bil.Ve Teknolojisi Enstitüsü</td>
+            <td className='border px-4 py-2'>
+              Deniz Bil.Ve Teknolojisi Enstitüsü
+            </td>
             <td className='border px-4 py-2'>8:30–17:30</td>
             <td className='border px-4 py-2'>KAPALI</td>
           </tr>
@@ -81,7 +83,7 @@ const WorkingOurs = () => {
           </tr>
         </table>
       </Modal>
-    </div>
+    </>
   );
 };
 export default WorkingOurs;

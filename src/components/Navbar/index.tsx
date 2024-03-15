@@ -4,10 +4,12 @@ import WorkingOurs from "../WorkingOurs";
 
 const Navbar = () => {
   return (
-    <div className='flex flex-row justify-end gap-10'>
-      <WorkingOurs />
-      <OpenWeather />
-      <div className='bg-light_blue-900 flex flex-row justify-end space-x-8 border-y p-6'>
+    <div className='flex w-full flex-col items-end'>
+      <div className='flex gap-2'>
+        <WorkingOurs />
+        <OpenWeather />
+      </div>
+      <div className='bg-light_blue-900 flex w-full flex-row justify-end space-x-8 border-y p-6'>
         <a
           href='https://debis.deu.edu.tr/debis.php'
           target='_blank'
