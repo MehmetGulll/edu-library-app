@@ -1,0 +1,17 @@
+schema:
+  - ${HASURA_CLIENT_URI}:
+      headers:
+        'x-hasura-admin-secret': ${X_HASURA_SECRET_ADMIN}
+documents: 'src/**/*.ts'
+generates:
+  src/generated/graphql.tsx:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-react-apollo'
+      - 'fragment-matcher'
+    config:
+      skipTypename: false
+      withHooks: true
+      withHOC: false
+      withComponent: false
