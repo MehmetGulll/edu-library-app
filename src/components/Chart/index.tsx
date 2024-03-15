@@ -53,7 +53,6 @@ const defaultOptions: ApexOptions = {
     curve: "smooth",
   },
   title: {
-    text: "Occupancy Chart",
     align: "center",
   },
   grid: {

@@ -1,7 +1,7 @@
 import DateCard from "@/components/DateCard";
 import Chart from "@/components/Chart";
 import { getOccupancyByDateRange } from "../../utils/getOccupancy";
-import { getProductsByCategory } from "@/api";
+import { getBorrow } from "../api/index";
 
 export default async function Home() {
   const occupancyArr = await getOccupancyByDateRange(
@@ -9,7 +9,7 @@ export default async function Home() {
     "26.01.2024"
   );
 
-  const data = await getProductsByCategory();
+  const data = await getBorrow();
 
   const groupedByDate = data.borrow.reduce(
     (acc: { [key: string]: any[] }, item) => {
@@ -21,6 +21,11 @@ export default async function Home() {
     },
     {}
   );
+  const dates = Object.keys(groupedByDate).map((dateStr) => {
+    const [year, month, day] = dateStr.split("-");
+    return `${day}.${month}.${year}`;
+  });
+  const counts = Object.values(groupedByDate).map((items) => items.length);
 
   const groupedByCategory = data.borrow.reduce(
     (acc: { [key: string]: any[] }, item) => {
@@ -54,6 +59,10 @@ export default async function Home() {
     categoryCounts.push(otherCategory);
   }
 
+  if (otherCategory.data > 0) {
+    categoryCounts.push(otherCategory);
+  }
+
   return (
     <div className='p-4'>
       <div className=' mb-8 flex flex-col justify-center gap-4 rounded-lg border border-gray-300 p-8 shadow-md'>
@@ -65,13 +74,36 @@ export default async function Home() {
               options={{
                 colors: ["#49dcb1", "#daf8ef"],
                 xaxis: {
-                  categories: occupancyArr.map((item) => item.date),
+                  categories: dates,
                   tooltip: {
                     enabled: false,
                   },
                 },
+                dataLabels: {
+                  enabled: false,
+                },
+                yaxis: [
+                  {
+                    title: {
+                      text: "Total Occupancy",
+                    },
+                  },
+                  {
+                    opposite: true,
+                    title: {
+                      text: "Total Borrow Books",
+                    },
+                  },
+                ],
+                markers: {
+                  size: 5,
+                },
               }}
               series={[
+                {
+                  name: "Total Rent Books ",
+                  data: counts,
+                },
                 {
                   name: "Total Occupancy",
                   data: occupancyArr.map((item) =>
@@ -100,6 +132,13 @@ export default async function Home() {
           <DateCard {...item} key={item.date} />
         ))}
       </div>
+      <Chart
+        width={1300}
+        height={365}
+        type='pie'
+        options={{ labels: categoryCounts.map((item) => item.name) }}
+        series={categoryCounts.map((item) => item.data)}
+      />
     </div>
   );
 }
