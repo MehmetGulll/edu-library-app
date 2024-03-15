@@ -1,12 +1,12 @@
 import React from "react";
 import OpenWeather from "../OpenWeather";
-import WorkingOurs from "../WorkingOurs";
+import WorkingHours from "../WorkingHours";
 
 const Navbar = () => {
   return (
-    <div className='flex w-full flex-col items-end'>
+    <div className='flex flex-col items-end gap-1'>
       <div className='flex gap-2'>
-        <WorkingOurs />
+        <WorkingHours />
         <OpenWeather />
       </div>
       <div className='bg-light_blue-900 flex w-full flex-row justify-end space-x-8 border-y p-6'>
