@@ -5,36 +5,17 @@ import WorkingHours from "../WorkingHours";
 const Navbar = () => {
   return (
     <div className='flex flex-col items-end gap-1'>
-      <div className='flex gap-2'>
-        <WorkingHours />
+      <div className='px-4 pt-1'>
         <OpenWeather />
       </div>
-      <div className='bg-light_blue-900 flex w-full flex-row justify-end space-x-8 border-y p-6'>
+      <div className='flex w-full flex-row items-center justify-end gap-4 border-y bg-light_blue-900 px-4 py-6'>
+        <div className='rounded-lg bg-rose_pompadour-500  text-white transition-colors hover:bg-rose_pompadour-400'>
+          <WorkingHours />
+        </div>
+
         <a
-          href='https://debis.deu.edu.tr/debis.php'
-          target='_blank'
-          className='font-semibold text-gray-800 transition-colors hover:text-black'
-        >
-          Debis Giriş
-        </a>
-        <a
-          href='https://online.deu.edu.tr/'
-          target='_blank'
-          className='font-semibold text-gray-800 transition-colors hover:text-black'
-        >
-          Sakai Giriş
-        </a>
-        <a
-          href='https://webmail7.deu.edu.tr/'
-          target='_blank'
-          className='font-semibold text-gray-800 transition-colors hover:text-black'
-        >
-          Mail Giriş
-        </a>
-        <a
-          href='https://kutuphane.deu.edu.tr/tr/category/duyurular/'
-          target='_blank'
-          className='font-semibold text-gray-800 transition-colors hover:text-black'
+          href='#announcements'
+          className='whitespace-nowrap text-sm font-semibold text-light_blue-300 transition-colors hover:text-light_blue-200 sm:text-base'
         >
           Duyurular
         </a>

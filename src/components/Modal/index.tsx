@@ -32,25 +32,24 @@ const Modal: FC<ModalProps> = ({ opened, onClose, children }) => {
       className={`
       fixed
       left-0
-    top-0 z-10 h-screen w-screen min-w-10 transition-opacity duration-300 ease-in-out  ${opened ? "visible opacity-100" : "invisible opacity-0"}`}
+    top-0 z-10 h-screen w-screen  backdrop-blur-sm transition-all duration-300 ease-in-out  ${opened ? "visible opacity-100" : "invisible opacity-0"}`}
       role='dialog'
     >
       <div
-        className=' absolute left-0 top-0 h-full w-full bg-[#0f172acc] backdrop-blur-sm '
+        className='absolute left-0 top-0 h-full w-full bg-[#00000079] 
+        transition-all duration-300 ease-in-out'
         onClick={onClose}
       />
-      <div className='flex h-full w-full items-center justify-center'>
-        <div className='relative'>
-          <div className='min-w-96 rounded-xl bg-white  p-6 shadow-lg'>
-            {children}
-          </div>
-          <button
-            type='button'
-            className='absolute right-2 top-2'
-            onClick={onClose}
-          >
-            <IconX />
-          </button>
+      <div className='relative top-1/2 mx-auto  -translate-y-1/2 transform sm:max-w-[60%]'>
+        <button
+          type='button'
+          className='absolute right-4 top-2 rounded-lg text-black transition-colors hover:bg-rose_pompadour-500 hover:text-white sm:right-2'
+          onClick={onClose}
+        >
+          <IconX />
+        </button>
+        <div className='mx-2  max-h-[80vh] overflow-auto rounded-xl bg-white p-6 shadow-lg sm:mx-0'>
+          {children}
         </div>
       </div>
     </div>
