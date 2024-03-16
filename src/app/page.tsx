@@ -1,7 +1,6 @@
 import DateCard from "@/components/DateCard";
 import Chart from "@/components/Chart";
 import { getOccupancyByDateRange } from "../../utils/getOccupancy";
-import { getBorrow } from "../api/index";
 import { getLibraryData } from "../../utils/getLibraryData";
 
 export default async function Home() {
