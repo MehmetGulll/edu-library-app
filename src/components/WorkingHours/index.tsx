@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Modal from "../Modal";
 
-const WorkingOurs = () => {
+const WorkingHours = () => {
   const [isOpen, setIsOpen] = useState(false);
   const handleOpenModal = () => {
     setIsOpen(true);
@@ -86,4 +86,4 @@ const WorkingOurs = () => {
     </>
   );
 };
-export default WorkingOurs;
+export default WorkingHours;
