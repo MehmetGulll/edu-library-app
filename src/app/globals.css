@@ -16,6 +16,14 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4rem;
+  @media screen and (max-width: 640px) {
+    scroll-padding-top: 2rem;
+  }
+}
+
 body {
   color: black;
   background: white;
