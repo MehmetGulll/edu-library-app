@@ -17,6 +17,7 @@ export const getBorrow = async () => {
 };
 
 export const insertOccupancy = async (occupancy: Occupancy_Insert_Input) => {
+  console.log("inserting");
   const { data } = await client.mutate<InsertOccupancyMutation>({
     mutation: InsertOccupancyDocument,
     variables: {
