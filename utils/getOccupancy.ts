@@ -1,4 +1,3 @@
-// getOccupancy.ts
 const url = "https://akillikart.deu.edu.tr/kutuphane/"
 
 export type DateFormat = `${number}.${number}.${number}` | string

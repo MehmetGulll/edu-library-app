@@ -1,4 +1,3 @@
-// DateCard.tsx
 import { OccupancyWithDate } from "../../../utils/getOccupancy";
 
 const DateCard = ({ date, occupancy }: OccupancyWithDate) => {
