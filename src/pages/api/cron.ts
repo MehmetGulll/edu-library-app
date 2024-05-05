@@ -4,10 +4,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { getOccupancy } from "../../../utils/getOccupancy";
 import { InsertOccupancyMutation } from "@/generated/graphql";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<InsertOccupancyMutation>
-) {
+const cron = async () => {
   const currentDate = new Date();
   const [day, month, year] = [
     currentDate.getDate(),
@@ -23,5 +20,12 @@ export default async function handler(
   });
 
   console.log("cron", occupancyResult);
-  return res.status(200).json(occupancyResult as InsertOccupancyMutation);
+};
+
+export default function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<{ data: string }>
+) {
+  cron();
+  return res.status(200).json({ data: "ok" });
 }
