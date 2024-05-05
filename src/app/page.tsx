@@ -37,7 +37,7 @@ export default async function Home() {
       },
     },
     {
-      date: "26.01.2024",
+      date: "05.05.2024",
       occupancy: {
         total: "100",
         currentOccupancy: "80",
