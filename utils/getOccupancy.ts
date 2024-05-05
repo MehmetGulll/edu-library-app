@@ -13,6 +13,7 @@ type GetOccupancy = (date: DateFormat) => Promise<Occupancy>;
 
 const getOccupancy: GetOccupancy = async (date) => {
   try {
+    console.log("Fetching", date);
     const response = await fetch(url + `?date_baslama=${date}`, {
       // dont cache
       cache: "no-store",
@@ -36,8 +37,7 @@ const getOccupancy: GetOccupancy = async (date) => {
     return { total, currentOccupancy, capacity };
   } catch (error) {
     // retry
-    console.log("Retrying", date);
-
+    console.error("Error", error);
     return { total: "0", currentOccupancy: "0", capacity: "0" };
   }
 };
