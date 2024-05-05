@@ -156,9 +156,13 @@ export default async function Home() {
             />
           </div>
         </div>
-        <div className='container -m-2 flex scroll-pl-2 gap-2 overflow-x-auto p-2'>
+        <div className='flex flex-nowrap gap-2 overflow-x-scroll p-2'>
           {occupancyArr.map((item) => (
-            <DateCard {...item} key={item.date} />
+            <DateCard
+              {...item}
+              className='m-2 w-1/4 flex-none'
+              key={item.date}
+            />
           ))}
         </div>
       </div>
