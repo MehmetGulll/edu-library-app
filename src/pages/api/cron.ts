@@ -27,5 +27,6 @@ export default function handler(
   res: NextApiResponse<{ data: string }>
 ) {
   cron();
+  console.log("cron job started");
   return res.status(200).json({ data: "ok" });
 }
