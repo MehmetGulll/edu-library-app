@@ -1,6 +1,7 @@
+// getOccupancy.ts
 const url = "https://akillikart.deu.edu.tr/kutuphane/"
 
-export type DateFormat = `${number}.${number}.${number}`
+export type DateFormat = `${number}.${number}.${number}` | string
 
 interface Occupancy {
   total: string
