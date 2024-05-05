@@ -14,10 +14,7 @@ type GetOccupancy = (date: DateFormat) => Promise<Occupancy>;
 const getOccupancy: GetOccupancy = async (date) => {
   try {
     console.log("Fetching", date);
-    const response = await fetch(url + `?date_baslama=${date}`, {
-      // dont cache
-      cache: "no-store",
-    });
+    const response = await fetch(url + `?date_baslama=${date}`);
     const html = await response.text();
 
     const parsedHtml = html
