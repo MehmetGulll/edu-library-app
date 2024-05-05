@@ -2,6 +2,7 @@ import { insertOccupancy } from "@/api";
 
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getOccupancy } from "../../../utils/getOccupancy";
+export const runtime = "edge";
 
 export default async function handler(
   req: NextApiRequest,
