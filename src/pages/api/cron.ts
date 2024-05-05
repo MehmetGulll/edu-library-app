@@ -6,6 +6,7 @@ import { InsertOccupancyMutation } from "@/generated/graphql";
 
 const cron = async () => {
   const currentDate = new Date();
+  console.log("🚀 ~ cron ~ currentDate:", currentDate);
   const [day, month, year] = [
     currentDate.getDate(),
     currentDate.getMonth() + 1,
