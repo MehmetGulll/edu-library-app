@@ -1248,6 +1248,13 @@ export type GetBorrowQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetBorrowQuery = { __typename?: 'query_root', borrow: Array<{ __typename?: 'borrow', category: string, date: any }> };
 
+export type InsertOccupancyMutationVariables = Exact<{
+  occupancy: Occupancy_Insert_Input;
+}>;
+
+
+export type InsertOccupancyMutation = { __typename?: 'mutation_root', insert_occupancy_one?: { __typename?: 'occupancy', date: any } | null };
+
 
 export const GetBorrowDocument = gql`
     query getBorrow {
@@ -1289,6 +1296,39 @@ export type GetBorrowQueryHookResult = ReturnType<typeof useGetBorrowQuery>;
 export type GetBorrowLazyQueryHookResult = ReturnType<typeof useGetBorrowLazyQuery>;
 export type GetBorrowSuspenseQueryHookResult = ReturnType<typeof useGetBorrowSuspenseQuery>;
 export type GetBorrowQueryResult = Apollo.QueryResult<GetBorrowQuery, GetBorrowQueryVariables>;
+export const InsertOccupancyDocument = gql`
+    mutation InsertOccupancy($occupancy: occupancy_insert_input!) {
+  insert_occupancy_one(object: $occupancy) {
+    date
+  }
+}
+    `;
+export type InsertOccupancyMutationFn = Apollo.MutationFunction<InsertOccupancyMutation, InsertOccupancyMutationVariables>;
+
+/**
+ * __useInsertOccupancyMutation__
+ *
+ * To run a mutation, you first call `useInsertOccupancyMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertOccupancyMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertOccupancyMutation, { data, loading, error }] = useInsertOccupancyMutation({
+ *   variables: {
+ *      occupancy: // value for 'occupancy'
+ *   },
+ * });
+ */
+export function useInsertOccupancyMutation(baseOptions?: Apollo.MutationHookOptions<InsertOccupancyMutation, InsertOccupancyMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertOccupancyMutation, InsertOccupancyMutationVariables>(InsertOccupancyDocument, options);
+      }
+export type InsertOccupancyMutationHookResult = ReturnType<typeof useInsertOccupancyMutation>;
+export type InsertOccupancyMutationResult = Apollo.MutationResult<InsertOccupancyMutation>;
+export type InsertOccupancyMutationOptions = Apollo.BaseMutationOptions<InsertOccupancyMutation, InsertOccupancyMutationVariables>;
 
       export interface PossibleTypesResultData {
         possibleTypes: {

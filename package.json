@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "concurrently --kill-others \"node cron\" \"next dev\"",
     "build": "next build",
-    "start": "next start",
+    "start": "concurrently --kill-others \"node cron\" \"next start\"",
     "lint": "next lint",
     "generate": "graphql-codegen --config codegen.yml --require dotenv/config"
   },
@@ -13,7 +13,9 @@
     "@apollo/client": "^3.9.7",
     "apexcharts": "^3.45.2",
     "cheerio": "^1.0.0-rc.12",
+    "concurrently": "^8.2.2",
     "next": "14.1.0",
+    "node-cron": "^3.0.3",
     "react": "^18",
     "react-apexcharts": "^1.4.1",
     "react-dom": "^18"
