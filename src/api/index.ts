@@ -18,15 +18,19 @@ export const getBorrow = async () => {
 
 export const insertOccupancy = async (occupancy: Occupancy_Insert_Input) => {
   console.log("inserting");
-  const { data } = await client.mutate<InsertOccupancyMutation>({
-    mutation: InsertOccupancyDocument,
-    variables: {
-      occupancy,
-    },
-    fetchPolicy: "no-cache",
-  });
+  try {
+    const { data } = await client.mutate<InsertOccupancyMutation>({
+      mutation: InsertOccupancyDocument,
+      variables: {
+        occupancy,
+      },
+      fetchPolicy: "no-cache",
+    });
 
-  return data;
+    return data;
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 export const getCurrentOccupancy = async () => {
