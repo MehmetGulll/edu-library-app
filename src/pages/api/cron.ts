@@ -4,10 +4,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { getOccupancy } from "../../../utils/getOccupancy";
 export const runtime = "edge";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<{ data: any }>
-) {
+export default async function handler() {
   console.log("cron job started");
   const currentDate = new Date();
   const [day, month, year] = [
@@ -24,5 +21,5 @@ export default async function handler(
   });
 
   console.log("cron", occupancyResult);
-  return res.status(200).json({ data: occupancyResult });
+  return Response.json({ data: occupancyResult });
 }
