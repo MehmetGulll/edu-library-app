@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently --kill-others \"node cron\" \"next dev\"",
+    "dev": "next dev",
     "build": "next build",
     "start": "concurrently --kill-others \"node cron\" \"next start\"",
     "lint": "next lint",
