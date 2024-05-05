@@ -4,22 +4,12 @@ import { OccupancyWithDate } from "../../utils/getOccupancy";
 import { getLibraryData } from "../../utils/getLibraryData";
 import React from "react";
 import AnnouncementList from "@/components/AnnouncementList";
-import cron from "node-cron";
+
 export default async function Home() {
   // const occupancyArr = await getOccupancyByDateRange(
   //   "23.01.2024",
   //   "26.01.2024"
   // );
-
-  cron.schedule("*/60 * * * *", async () => {
-    const currentDomain = process.env.VERCEL_URL || "http://localhost:3000";
-    await fetch(currentDomain + "/api/cron", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    console.log("cron");
-  });
 
   const occupancyArr: OccupancyWithDate[] = [
     {

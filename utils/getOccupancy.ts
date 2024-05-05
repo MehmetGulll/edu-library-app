@@ -9,9 +9,9 @@ interface Occupancy {
   capacity: string;
 }
 
-type GetOccupancy = (date: DateFormat, retries: number) => Promise<Occupancy>;
+type GetOccupancy = (date: DateFormat, retries?: number) => Promise<Occupancy>;
 
-const getOccupancy: GetOccupancy = async (date, retries) => {
+const getOccupancy: GetOccupancy = async (date, retries = 0) => {
   try {
     const response = await fetch(url + `?date_baslama=${date}`, {
       // dont cache

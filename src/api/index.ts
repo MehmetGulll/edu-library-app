@@ -3,6 +3,7 @@ import {
   GetBorrowQuery,
   GetOccupancyDocument,
   InsertOccupancyDocument,
+  InsertOccupancyMutation,
   Occupancy_Insert_Input,
 } from "@/generated/graphql";
 import { client } from "../../utils/apolloClient";
@@ -16,11 +17,12 @@ export const getBorrow = async () => {
 };
 
 export const insertOccupancy = async (occupancy: Occupancy_Insert_Input) => {
-  const { data } = await client.mutate({
+  const { data } = await client.mutate<InsertOccupancyMutation>({
     mutation: InsertOccupancyDocument,
     variables: {
       occupancy,
     },
+    fetchPolicy: "no-cache",
   });
 
   return data;
