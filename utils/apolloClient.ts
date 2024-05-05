@@ -1,6 +1,4 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
-import { getOccupancy, DateFormat } from "./getOccupancy";
-import { gql } from "@apollo/client";
 
 export const client = new ApolloClient({
   link: createHttpLink({
