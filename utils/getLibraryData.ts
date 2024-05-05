@@ -1,5 +1,20 @@
 import { getBorrow } from "@/api";
 
+function translateCategory(category: string): string {
+  const translations: { [key: string]: string } = {
+    'Science': 'Bilim',
+    'Law': 'Hukuk',
+    'Language and Literature': 'Dil ve Edebiyat',
+    'Technology': 'Teknoloji',
+    'Social Sciences': 'Sosyal Bilimler',
+    'Philosophy, Psychology, Religion': 'Felsefe, Psikoloji, Din',
+    'Fine Arts': 'Güzel Sanatlar',
+    'Arts & recreation': 'Sanat ve Eğlence',
+    'Literature': 'Edebiyat'
+  };
+  return translations[category] || category;
+}
+
 export async function getLibraryData() {
   const data = await getBorrow();
 
@@ -13,11 +28,17 @@ export async function getLibraryData() {
     },
     {}
   );
-  const dates = Object.keys(groupedByDate).map((dateStr) => {
-    const [year, month, day] = dateStr.split("-");
-    return `${day}.${month}.${year}`;
-  });
-  const counts = Object.values(groupedByDate).map((items) => items.length);
+  const dates = Object.keys(groupedByDate)
+    .filter((_, index) => index % 4 === 0)
+    .map((dateStr) => {
+      const [year, month, day] = dateStr.split("-");
+      return `${day}.${month}.${year}`;
+    });
+
+  const counts = Object.values(groupedByDate)
+    .filter((_, index) => index % 4 === 0)
+    .map((items) => items.length);
+
   const groupedByCategory = data.borrow.reduce(
     (acc: { [key: string]: any[] }, item) => {
       if (!acc[item.category as keyof typeof acc]) {
@@ -31,7 +52,7 @@ export async function getLibraryData() {
   const totalDataCount = data.borrow.length;
   const threshold = 0.03;
   let categoryCounts = Object.keys(groupedByCategory).map((category) => ({
-    name: category,
+    name: translateCategory(category),
     data: groupedByCategory[category].length,
   }));
   let otherCategory = {

@@ -38,7 +38,7 @@ const AnnouncementCard = ({
             <div className='truncate text-lg font-semibold text-gray-700'>
               {title}
             </div>
-            <div className='text-light_blue-400'>{date}</div>
+            <div className='text-gray-500'>{date}</div>
           </div>
         </div>
         <div className='mb-2 flex flex-col gap-1'>
