@@ -3,17 +3,21 @@ import React, { useEffect, useState } from "react";
 import { getOccupancy } from "../../../utils/getOccupancy";
 
 type Occupancy = {
-  total: string
-  currentOccupancy: string
-  capacity: string
-}
+  total: string;
+  currentOccupancy: string;
+  capacity: string;
+};
 
 const OccupancyCard = () => {
-  const [occupancy, setOccupancy] = useState<Occupancy>({ total: "0", currentOccupancy: "0", capacity: "0" });
+  const [occupancy, setOccupancy] = useState<Occupancy>({
+    total: "0",
+    currentOccupancy: "0",
+    capacity: "0",
+  });
 
   const formatDate = (date: Date): `${number}.${number}.${number}` => {
     const day = date.getDate();
-    const month = date.getMonth() + 1; 
+    const month = date.getMonth() + 1;
     const year = date.getFullYear();
 
     return `${day}.${month}.${year}` as `${number}.${number}.${number}`;
@@ -22,14 +26,14 @@ const OccupancyCard = () => {
   useEffect(() => {
     const fetchOccupancy = async () => {
       const date = formatDate(new Date());
-      const occupancy = await getOccupancy(date);
+      const occupancy = await getOccupancy(date, 0);
       setOccupancy(occupancy);
     };
 
     fetchOccupancy();
-    const intervalId = setInterval(fetchOccupancy, 60 *1000); 
+    const intervalId = setInterval(fetchOccupancy, 60 * 1000);
 
-    return () => clearInterval(intervalId); 
+    return () => clearInterval(intervalId);
   }, []);
 
   return (
@@ -39,11 +43,15 @@ const OccupancyCard = () => {
       </div>
       <div className='flex gap-6'>
         <div className='flex flex-col gap-1'>
-          <div className='text-xs font-semibold text-gray-500'>Şu an doluluk:</div>
+          <div className='text-xs font-semibold text-gray-500'>
+            Şu an doluluk:
+          </div>
           <div>{occupancy.currentOccupancy}</div>
         </div>
         <div className='flex flex-col gap-1'>
-          <div className='text-xs font-semibold text-gray-500'>Toplam kapasite:</div>
+          <div className='text-xs font-semibold text-gray-500'>
+            Toplam kapasite:
+          </div>
           <div>{occupancy.total}</div>
         </div>
       </div>

@@ -1,3 +1,4 @@
+import fs from "fs";
 const url = "https://akillikart.deu.edu.tr/kutuphane/";
 
 export type DateFormat = `${number}.${number}.${number}`;
@@ -8,17 +9,13 @@ interface Occupancy {
   capacity: string;
 }
 
-type GetOccupancy = (date: DateFormat) => Promise<Occupancy>;
+type GetOccupancy = (date: DateFormat, retries: number) => Promise<Occupancy>;
 
-const getOccupancy: GetOccupancy = async (date) => {
+const getOccupancy: GetOccupancy = async (date, retries) => {
   try {
     const response = await fetch(url + `?date_baslama=${date}`, {
-      next: {
-        revalidate:
-          date === new Date().toLocaleDateString("tr-TR")
-            ? 60
-            : Number.MAX_VALUE,
-      },
+      // dont cache
+      cache: "no-store",
     });
     const html = await response.text();
 
@@ -36,10 +33,16 @@ const getOccupancy: GetOccupancy = async (date) => {
     const currentOccupancy = splitted[1].split(": ")[1];
     const capacity = splitted[2].split(": ")[1];
 
+    if ((total === "0" || total === "") && retries > 5) {
+      throw new Error("Occupancy is 0");
+    }
+
     return { total, currentOccupancy, capacity };
   } catch (error) {
-    console.error("Error", error);
-    return { total: "0", currentOccupancy: "0", capacity: "0" };
+    // retry
+    console.log("Retrying", date);
+
+    return await getOccupancy(date, retries + 1);
   }
 };
 
@@ -56,23 +59,106 @@ export interface OccupancyWithDate {
 type GetOccupancyByDateRange = (
   start: DateFormat,
   end: DateFormat
-) => Promise<OccupancyWithDate[]>;
+) => OccupancyWithDate[];
 
 const getOccupancyByDateRange: GetOccupancyByDateRange = (start, end) => {
   const startDate = new Date(flipDate(start));
   const endDate = new Date(flipDate(end));
-  const dateRange = [];
+  const alreadyFetched = JSON.parse(fs.readFileSync("occupancy.json", "utf-8"));
+  const dateRange: string[] = [];
   while (startDate <= endDate) {
+    if (
+      alreadyFetched.find(
+        (x: { date: string }) =>
+          x.date === new Date(startDate).toLocaleDateString("tr-TR")
+      )
+    ) {
+      startDate.setDate(startDate.getDate() + 1);
+      continue;
+    }
     dateRange.push(new Date(startDate).toLocaleDateString("tr-TR"));
     startDate.setDate(startDate.getDate() + 1);
   }
 
-  return Promise.all(
-    dateRange.map(async (date) => {
-      const occupancy = await getOccupancy(date as DateFormat);
-      return { date: date as DateFormat, occupancy };
-    })
-  );
+  let progress = 0;
+  const result: OccupancyWithDate[] = [];
+  const fetchOc = async () => {
+    for (const date of dateRange) {
+      let occupancy = await getOccupancy(date as DateFormat, 0);
+      progress++;
+      console.log(
+        "Fetced",
+        date,
+        occupancy.total,
+        "Progress",
+        progress,
+        "/",
+        dateRange.length
+      );
+
+      // add date to array
+      fs.appendFileSync(
+        "occupancy.json",
+        JSON.stringify({ date, occupancy }, null, 2)
+      );
+      result.push({ date: date as DateFormat, occupancy });
+    }
+  };
+  fetchOc();
+  return result;
 };
 
-export { getOccupancy, getOccupancyByDateRange };
+const checkOccupancyIfitIsReallyZero = async () => {
+  const ocs = JSON.parse(fs.readFileSync("occupancy.json", "utf-8")).filter(
+    (x: { occupancy: Occupancy }) => x.occupancy.total === "0"
+  );
+  let progress = 0;
+
+  for (const oc of ocs) {
+    const occupancy = await getOccupancy(oc.date, 0);
+    progress++;
+    console.log(
+      "Fetced",
+      oc.date,
+      occupancy.total,
+      "Progress",
+      progress,
+      "/",
+      ocs.length
+    );
+    if (occupancy.total !== "0") {
+      console.log("Occupancy is not 0", oc.date, occupancy.total);
+      fs.writeFileSync(
+        "occupancy.json",
+        JSON.stringify(
+          JSON.parse(fs.readFileSync("occupancy.json", "utf-8")).map(
+            (x: { date: string }) =>
+              x.date === oc.date ? { date: oc.date, occupancy } : x
+          ),
+          null,
+          2
+        )
+      );
+    }
+  }
+};
+
+const flipDateJson = () => {
+  const ocs = JSON.parse(fs.readFileSync("occupancy.json", "utf-8")).map(
+    (x: any) => {
+      return {
+        ...x,
+        date: x.date.split(".").reverse().join("."),
+      };
+    }
+  );
+
+  fs.writeFileSync("occupancy.json", JSON.stringify(ocs, null, 2));
+};
+
+export {
+  getOccupancy,
+  getOccupancyByDateRange,
+  checkOccupancyIfitIsReallyZero,
+  flipDateJson,
+};

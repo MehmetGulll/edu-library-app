@@ -8,7 +8,7 @@ export async function GET() {
     currentDate.getMonth() + 1,
     currentDate.getFullYear(),
   ];
-  const result = await getOccupancy(`${day}.${month}.${year}`);
+  const result = await getOccupancy(`${day}.${month}.${year}`, 0);
   const occupancyResult = await insertOccupancy({
     total: parseInt(result.total),
     current: parseInt(result.currentOccupancy),
