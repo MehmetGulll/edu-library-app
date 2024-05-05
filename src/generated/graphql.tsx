@@ -1255,6 +1255,14 @@ export type InsertOccupancyMutationVariables = Exact<{
 
 export type InsertOccupancyMutation = { __typename?: 'mutation_root', insert_occupancy_one?: { __typename?: 'occupancy', date: any } | null };
 
+export type GetOccupancyQueryVariables = Exact<{
+  start: Scalars['timestamptz']['input'];
+  end: Scalars['timestamptz']['input'];
+}>;
+
+
+export type GetOccupancyQuery = { __typename?: 'query_root', occupancy: Array<{ __typename?: 'occupancy', current: number, date: any, id: number, libary_id: number, total: number }> };
+
 
 export const GetBorrowDocument = gql`
     query getBorrow {
@@ -1329,6 +1337,51 @@ export function useInsertOccupancyMutation(baseOptions?: Apollo.MutationHookOpti
 export type InsertOccupancyMutationHookResult = ReturnType<typeof useInsertOccupancyMutation>;
 export type InsertOccupancyMutationResult = Apollo.MutationResult<InsertOccupancyMutation>;
 export type InsertOccupancyMutationOptions = Apollo.BaseMutationOptions<InsertOccupancyMutation, InsertOccupancyMutationVariables>;
+export const GetOccupancyDocument = gql`
+    query getOccupancy($start: timestamptz!, $end: timestamptz!) {
+  occupancy(where: {date: {_gte: $start, _lte: $end}}) {
+    current
+    date
+    id
+    libary_id
+    total
+  }
+}
+    `;
+
+/**
+ * __useGetOccupancyQuery__
+ *
+ * To run a query within a React component, call `useGetOccupancyQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetOccupancyQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetOccupancyQuery({
+ *   variables: {
+ *      start: // value for 'start'
+ *      end: // value for 'end'
+ *   },
+ * });
+ */
+export function useGetOccupancyQuery(baseOptions: Apollo.QueryHookOptions<GetOccupancyQuery, GetOccupancyQueryVariables> & ({ variables: GetOccupancyQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetOccupancyQuery, GetOccupancyQueryVariables>(GetOccupancyDocument, options);
+      }
+export function useGetOccupancyLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetOccupancyQuery, GetOccupancyQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetOccupancyQuery, GetOccupancyQueryVariables>(GetOccupancyDocument, options);
+        }
+export function useGetOccupancySuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetOccupancyQuery, GetOccupancyQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetOccupancyQuery, GetOccupancyQueryVariables>(GetOccupancyDocument, options);
+        }
+export type GetOccupancyQueryHookResult = ReturnType<typeof useGetOccupancyQuery>;
+export type GetOccupancyLazyQueryHookResult = ReturnType<typeof useGetOccupancyLazyQuery>;
+export type GetOccupancySuspenseQueryHookResult = ReturnType<typeof useGetOccupancySuspenseQuery>;
+export type GetOccupancyQueryResult = Apollo.QueryResult<GetOccupancyQuery, GetOccupancyQueryVariables>;
 
       export interface PossibleTypesResultData {
         possibleTypes: {
