@@ -7,4 +7,5 @@ cron.schedule("*/60 * * * *", async () => {
             "Content-Type": "application/json",
         },
     })
+    console.log("cron")
 });
