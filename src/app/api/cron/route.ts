@@ -9,12 +9,12 @@ export async function GET() {
     currentDate.getFullYear(),
   ];
   const result = await getOccupancy(`${day}.${month}.${year}`);
-  const occupancyResult = insertOccupancy({
+  const occupancyResult = await insertOccupancy({
     total: parseInt(result.total),
     current: parseInt(result.currentOccupancy),
     date: new Date(),
     libary_id: 1,
   });
 
-  return Response.json(occupancyResult);
+  return Response.json({ occupancyResult });
 }
