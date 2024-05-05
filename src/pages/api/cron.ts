@@ -12,10 +12,10 @@ const cron = async () => {
     currentDate.getMonth() + 1,
     currentDate.getFullYear(),
   ];
-  const result = await getOccupancy(`${day}.${month}.${year}`);
+  // const result = await getOccupancy(`${day}.${month}.${year}`);
   const occupancyResult = await insertOccupancy({
-    total: parseInt(result.total),
-    current: parseInt(result.currentOccupancy),
+    total: 0,
+    current: 0,
     date: new Date(),
     libary_id: 1,
   });
