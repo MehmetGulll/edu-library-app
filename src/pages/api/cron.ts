@@ -13,21 +13,18 @@ const cron = async () => {
     currentDate.getFullYear(),
   ];
   // const result = await getOccupancy(`${day}.${month}.${year}`);
+};
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<{ data: any }>
+) {
+  console.log("cron job started");
   const occupancyResult = await insertOccupancy({
     total: 0,
     current: 0,
     date: new Date(),
     libary_id: 1,
   });
-
-  console.log("cron", occupancyResult);
-};
-
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<{ data: string }>
-) {
-  cron();
-  console.log("cron job started");
-  return res.status(200).json({ data: "ok" });
+  return res.status(200).json({ data: occupancyResult });
 }

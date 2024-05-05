@@ -2,6 +2,7 @@ import {
   GetBorrowDocument,
   GetBorrowQuery,
   GetOccupancyDocument,
+  GetOccupancyQuery,
   InsertOccupancyDocument,
   InsertOccupancyMutation,
   Occupancy_Insert_Input,
@@ -38,7 +39,7 @@ export const getCurrentOccupancy = async () => {
   const utcDate = new Date(date.toUTCString());
   const start = new Date(utcDate.setMinutes(0, 0, 0));
   const end = new Date(start.setHours(start.getHours() + 1));
-  const { data } = await client.query({
+  const { data } = await client.query<GetOccupancyQuery>({
     query: GetOccupancyDocument,
     variables: {
       start,
