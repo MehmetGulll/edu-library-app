@@ -1,7 +1,12 @@
 import { load } from "cheerio";
 const getLatestAnnouncements = async () => {
   const response = await fetch(
-    "https://kutuphane.deu.edu.tr/tr/category/duyuru-arsivi/"
+    "https://kutuphane.deu.edu.tr/tr/category/duyuru-arsivi/",
+    {
+      next: {
+        revalidate: 60 * 60 * 24,
+      },
+    }
   );
   const $ = load(await response.text());
 
