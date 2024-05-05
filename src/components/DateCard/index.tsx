@@ -1,6 +1,10 @@
-import { OccupancyWithDate } from "../../../utils/getOccupancy";
+import { DateFormat, OccupancyWithDate } from "../../../utils/getOccupancy";
 
-const DateCard = ({ date, occupancy }: OccupancyWithDate) => {
+interface DateCardProps extends OccupancyWithDate {
+  onClick: (date: DateFormat) => void;
+}
+
+const DateCard = ({ date, occupancy, onClick }: DateCardProps) => {
   return (
     <div className='rounded-xl p-2 px-4 shadow-md outline outline-1 outline-gray-300'>
       <div className='mb-2 flex flex-col gap-1'>

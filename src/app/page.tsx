@@ -158,7 +158,13 @@ export default async function Home() {
         </div>
         <div className='container -m-2 flex scroll-pl-2 gap-2 overflow-x-auto p-2'>
           {occupancyArr.map((item) => (
-            <DateCard {...item} key={item.date} />
+            <DateCard
+              {...item}
+              key={item.date}
+              onClick={() => {
+                return;
+              }}
+            />
           ))}
         </div>
       </div>
