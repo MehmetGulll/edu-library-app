@@ -1,10 +1,12 @@
-import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
+import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
+import { getOccupancy, DateFormat } from "./getOccupancy";
+import { gql } from "@apollo/client";
 
 export const client = new ApolloClient({
   link: createHttpLink({
-    uri: process.env.HASURA_CLIENT_URI || '',
+    uri: process.env.HASURA_CLIENT_URI || "",
     headers: {
-      'x-hasura-admin-secret': process.env.X_HASURA_SECRET_ADMIN || '',
+      "x-hasura-admin-secret": process.env.X_HASURA_SECRET_ADMIN || "",
     },
   }),
   cache: new InMemoryCache(),

@@ -160,8 +160,10 @@ export default async function Home() {
           {occupancyArr.map((item) => (
             <DateCard
               {...item}
-              className='m-2 w-1/4 flex-none'
               key={item.date}
+              onClick={() => {
+                return;
+              }}
             />
           ))}
         </div>
