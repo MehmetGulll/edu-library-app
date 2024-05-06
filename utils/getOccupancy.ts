@@ -9,14 +9,12 @@ interface Occupancy {
   capacity: string;
 }
 
-type GetOccupancy = (date: DateFormat, retries: number) => Promise<Occupancy>;
+type GetOccupancy = (date: DateFormat) => Promise<Occupancy>;
 
-const getOccupancy: GetOccupancy = async (date, retries) => {
+const getOccupancy: GetOccupancy = async (date) => {
   try {
-    const response = await fetch(url + `?date_baslama=${date}`, {
-      // dont cache
-      cache: "no-store",
-    });
+    console.log("Fetching", date);
+    const response = await fetch(url + `?date_baslama=${date}`);
     const html = await response.text();
 
     const parsedHtml = html
@@ -33,16 +31,11 @@ const getOccupancy: GetOccupancy = async (date, retries) => {
     const currentOccupancy = splitted[1].split(": ")[1];
     const capacity = splitted[2].split(": ")[1];
 
-    if ((total === "0" || total === "") && retries > 5) {
-      throw new Error("Occupancy is 0");
-    }
-
     return { total, currentOccupancy, capacity };
   } catch (error) {
     // retry
-    console.log("Retrying", date);
-
-    return await getOccupancy(date, retries + 1);
+    console.error("Error", error);
+    return { total: "0", currentOccupancy: "0", capacity: "0" };
   }
 };
 
@@ -84,7 +77,7 @@ const getOccupancyByDateRange: GetOccupancyByDateRange = (start, end) => {
   const result: OccupancyWithDate[] = [];
   const fetchOc = async () => {
     for (const date of dateRange) {
-      let occupancy = await getOccupancy(date as DateFormat, 0);
+      let occupancy = await getOccupancy(date as DateFormat);
       progress++;
       console.log(
         "Fetced",
@@ -115,7 +108,7 @@ const checkOccupancyIfitIsReallyZero = async () => {
   let progress = 0;
 
   for (const oc of ocs) {
-    const occupancy = await getOccupancy(oc.date, 0);
+    const occupancy = await getOccupancy(oc.date);
     progress++;
     console.log(
       "Fetced",
