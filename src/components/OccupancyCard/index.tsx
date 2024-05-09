@@ -15,7 +15,7 @@ const OccupancyCard = async () => {
     today.getMonth() + 1,
     today.getDate(),
   ];
-  const occupancy = await getCurrentOccupancy();
+  const { occupancy } = await getCurrentOccupancy();
 
   return (
     <div className='out rounded-xl p-2 px-4 shadow-md'>
@@ -25,11 +25,11 @@ const OccupancyCard = async () => {
       <div className='flex gap-6'>
         <div className='flex flex-col gap-1'>
           <div className='text-xs font-semibold '>Doluluk:</div>
-          <div>{occupancy.currentOccupancy}</div>
+          <div>{occupancy[0]?.current}</div>
         </div>
         <div className='flex flex-col gap-1'>
           <div className='text-xs font-semibold '>Gün toplam:</div>
-          <div>{occupancy.total}</div>
+          <div>{occupancy[0]?.total}</div>
         </div>
       </div>
     </div>
