@@ -17,7 +17,7 @@ export type Scalars = {
   Float: { input: number; output: number; }
   date: { input: any; output: any; }
   name: { input: any; output: any; }
-  timestamptz: { input: any; output: any; }
+  timestamp: { input: any; output: any; }
 };
 
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
@@ -749,7 +749,7 @@ export type Name_Comparison_Exp = {
 export type Occupancy = {
   __typename?: 'occupancy';
   current: Scalars['Int']['output'];
-  date: Scalars['timestamptz']['output'];
+  date: Scalars['timestamp']['output'];
   id: Scalars['Int']['output'];
   libary_id: Scalars['Int']['output'];
   total: Scalars['Int']['output'];
@@ -800,7 +800,7 @@ export type Occupancy_Bool_Exp = {
   _not?: InputMaybe<Occupancy_Bool_Exp>;
   _or?: InputMaybe<Array<Occupancy_Bool_Exp>>;
   current?: InputMaybe<Int_Comparison_Exp>;
-  date?: InputMaybe<Timestamptz_Comparison_Exp>;
+  date?: InputMaybe<Timestamp_Comparison_Exp>;
   id?: InputMaybe<Int_Comparison_Exp>;
   libary_id?: InputMaybe<Int_Comparison_Exp>;
   total?: InputMaybe<Int_Comparison_Exp>;
@@ -823,7 +823,7 @@ export type Occupancy_Inc_Input = {
 /** input type for inserting data into table "occupancy" */
 export type Occupancy_Insert_Input = {
   current?: InputMaybe<Scalars['Int']['input']>;
-  date?: InputMaybe<Scalars['timestamptz']['input']>;
+  date?: InputMaybe<Scalars['timestamp']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
   libary_id?: InputMaybe<Scalars['Int']['input']>;
   total?: InputMaybe<Scalars['Int']['input']>;
@@ -833,7 +833,7 @@ export type Occupancy_Insert_Input = {
 export type Occupancy_Max_Fields = {
   __typename?: 'occupancy_max_fields';
   current?: Maybe<Scalars['Int']['output']>;
-  date?: Maybe<Scalars['timestamptz']['output']>;
+  date?: Maybe<Scalars['timestamp']['output']>;
   id?: Maybe<Scalars['Int']['output']>;
   libary_id?: Maybe<Scalars['Int']['output']>;
   total?: Maybe<Scalars['Int']['output']>;
@@ -843,7 +843,7 @@ export type Occupancy_Max_Fields = {
 export type Occupancy_Min_Fields = {
   __typename?: 'occupancy_min_fields';
   current?: Maybe<Scalars['Int']['output']>;
-  date?: Maybe<Scalars['timestamptz']['output']>;
+  date?: Maybe<Scalars['timestamp']['output']>;
   id?: Maybe<Scalars['Int']['output']>;
   libary_id?: Maybe<Scalars['Int']['output']>;
   total?: Maybe<Scalars['Int']['output']>;
@@ -896,7 +896,7 @@ export enum Occupancy_Select_Column {
 /** input type for updating data in table "occupancy" */
 export type Occupancy_Set_Input = {
   current?: InputMaybe<Scalars['Int']['input']>;
-  date?: InputMaybe<Scalars['timestamptz']['input']>;
+  date?: InputMaybe<Scalars['timestamp']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
   libary_id?: InputMaybe<Scalars['Int']['input']>;
   total?: InputMaybe<Scalars['Int']['input']>;
@@ -940,7 +940,7 @@ export type Occupancy_Stream_Cursor_Input = {
 /** Initial value of the column from where the streaming should start */
 export type Occupancy_Stream_Cursor_Value_Input = {
   current?: InputMaybe<Scalars['Int']['input']>;
-  date?: InputMaybe<Scalars['timestamptz']['input']>;
+  date?: InputMaybe<Scalars['timestamp']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
   libary_id?: InputMaybe<Scalars['Int']['input']>;
   total?: InputMaybe<Scalars['Int']['input']>;
@@ -1230,17 +1230,17 @@ export type Subscription_RootOccupancy_StreamArgs = {
   where?: InputMaybe<Occupancy_Bool_Exp>;
 };
 
-/** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
-export type Timestamptz_Comparison_Exp = {
-  _eq?: InputMaybe<Scalars['timestamptz']['input']>;
-  _gt?: InputMaybe<Scalars['timestamptz']['input']>;
-  _gte?: InputMaybe<Scalars['timestamptz']['input']>;
-  _in?: InputMaybe<Array<Scalars['timestamptz']['input']>>;
+/** Boolean expression to compare columns of type "timestamp". All fields are combined with logical 'AND'. */
+export type Timestamp_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['timestamp']['input']>;
+  _gt?: InputMaybe<Scalars['timestamp']['input']>;
+  _gte?: InputMaybe<Scalars['timestamp']['input']>;
+  _in?: InputMaybe<Array<Scalars['timestamp']['input']>>;
   _is_null?: InputMaybe<Scalars['Boolean']['input']>;
-  _lt?: InputMaybe<Scalars['timestamptz']['input']>;
-  _lte?: InputMaybe<Scalars['timestamptz']['input']>;
-  _neq?: InputMaybe<Scalars['timestamptz']['input']>;
-  _nin?: InputMaybe<Array<Scalars['timestamptz']['input']>>;
+  _lt?: InputMaybe<Scalars['timestamp']['input']>;
+  _lte?: InputMaybe<Scalars['timestamp']['input']>;
+  _neq?: InputMaybe<Scalars['timestamp']['input']>;
+  _nin?: InputMaybe<Array<Scalars['timestamp']['input']>>;
 };
 
 export type GetBorrowQueryVariables = Exact<{ [key: string]: never; }>;
@@ -1256,12 +1256,17 @@ export type InsertOccupancyMutationVariables = Exact<{
 export type InsertOccupancyMutation = { __typename?: 'mutation_root', insert_occupancy_one?: { __typename?: 'occupancy', date: any } | null };
 
 export type GetOccupancyQueryVariables = Exact<{
-  start: Scalars['timestamptz']['input'];
-  end: Scalars['timestamptz']['input'];
+  start: Scalars['timestamp']['input'];
+  end: Scalars['timestamp']['input'];
 }>;
 
 
 export type GetOccupancyQuery = { __typename?: 'query_root', occupancy: Array<{ __typename?: 'occupancy', current: number, date: any, id: number, libary_id: number, total: number }> };
+
+export type GetLastOccupancyQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetLastOccupancyQuery = { __typename?: 'query_root', occupancy: Array<{ __typename?: 'occupancy', current: number, date: any, id: number, libary_id: number, total: number }> };
 
 
 export const GetBorrowDocument = gql`
@@ -1338,7 +1343,7 @@ export type InsertOccupancyMutationHookResult = ReturnType<typeof useInsertOccup
 export type InsertOccupancyMutationResult = Apollo.MutationResult<InsertOccupancyMutation>;
 export type InsertOccupancyMutationOptions = Apollo.BaseMutationOptions<InsertOccupancyMutation, InsertOccupancyMutationVariables>;
 export const GetOccupancyDocument = gql`
-    query getOccupancy($start: timestamptz!, $end: timestamptz!) {
+    query getOccupancy($start: timestamp!, $end: timestamp!) {
   occupancy(where: {date: {_gte: $start, _lte: $end}}) {
     current
     date
@@ -1382,6 +1387,49 @@ export type GetOccupancyQueryHookResult = ReturnType<typeof useGetOccupancyQuery
 export type GetOccupancyLazyQueryHookResult = ReturnType<typeof useGetOccupancyLazyQuery>;
 export type GetOccupancySuspenseQueryHookResult = ReturnType<typeof useGetOccupancySuspenseQuery>;
 export type GetOccupancyQueryResult = Apollo.QueryResult<GetOccupancyQuery, GetOccupancyQueryVariables>;
+export const GetLastOccupancyDocument = gql`
+    query getLastOccupancy {
+  occupancy(limit: 1, order_by: {date: desc}) {
+    current
+    date
+    id
+    libary_id
+    total
+  }
+}
+    `;
+
+/**
+ * __useGetLastOccupancyQuery__
+ *
+ * To run a query within a React component, call `useGetLastOccupancyQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLastOccupancyQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLastOccupancyQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetLastOccupancyQuery(baseOptions?: Apollo.QueryHookOptions<GetLastOccupancyQuery, GetLastOccupancyQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLastOccupancyQuery, GetLastOccupancyQueryVariables>(GetLastOccupancyDocument, options);
+      }
+export function useGetLastOccupancyLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLastOccupancyQuery, GetLastOccupancyQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLastOccupancyQuery, GetLastOccupancyQueryVariables>(GetLastOccupancyDocument, options);
+        }
+export function useGetLastOccupancySuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetLastOccupancyQuery, GetLastOccupancyQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetLastOccupancyQuery, GetLastOccupancyQueryVariables>(GetLastOccupancyDocument, options);
+        }
+export type GetLastOccupancyQueryHookResult = ReturnType<typeof useGetLastOccupancyQuery>;
+export type GetLastOccupancyLazyQueryHookResult = ReturnType<typeof useGetLastOccupancyLazyQuery>;
+export type GetLastOccupancySuspenseQueryHookResult = ReturnType<typeof useGetLastOccupancySuspenseQuery>;
+export type GetLastOccupancyQueryResult = Apollo.QueryResult<GetLastOccupancyQuery, GetLastOccupancyQueryVariables>;
 
       export interface PossibleTypesResultData {
         possibleTypes: {
