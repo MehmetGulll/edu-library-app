@@ -18,7 +18,7 @@ const Navbar = () => {
             <WorkingHours />
           </div>
           <a
-            href='#announcements'
+            href='/#announcements'
             className='whitespace-nowrap text-sm font-semibold text-light_blue-300 transition-colors hover:text-light_blue-200 sm:text-base'
           >
             Duyurular

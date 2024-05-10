@@ -5,7 +5,7 @@ import { getOccupancy } from "../../../utils/getOccupancy";
 export const runtime = "edge";
 
 export default async function handler() {
-  console.log("cron job started");
+  console.info("cron job started");
   const currentDate = new Date();
   const [day, month, year] = [
     currentDate.getDate(),
@@ -15,11 +15,11 @@ export default async function handler() {
   const result = await getOccupancy(`${day}.${month}.${year}`);
   const occupancyResult = await insertOccupancy({
     total: parseInt(result.total),
-    current: parseInt(result.currentOccupancy),
+    current: parseInt(result.current),
     date: new Date(),
     libary_id: 1,
   });
 
-  console.log("cron", occupancyResult);
+  console.info("cron", occupancyResult);
   return Response.json({ data: occupancyResult });
 }

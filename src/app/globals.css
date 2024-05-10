@@ -26,7 +26,7 @@ html {
 
 body {
   color: black;
-  background: white;
+  background-color: white;
 }
 
 @layer utilities {
