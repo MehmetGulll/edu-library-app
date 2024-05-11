@@ -21,6 +21,7 @@ const DateCardList = ({ occupancies }: DateCardListProps) => {
           },
           controls: {
             marginInline: "-12px",
+           
           },
         }}
         dragFree

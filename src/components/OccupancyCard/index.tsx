@@ -18,11 +18,11 @@ const OccupancyCard = async () => {
       </div>
       <div className='flex gap-6'>
         <div className='flex flex-col gap-1'>
-          <div className='text-xs font-semibold '>Anlık:</div>
+          <div className='text-xs font-semibold '>Anlık</div>
           <div>{occupancy[0]?.current}</div>
         </div>
         <div className='flex flex-col gap-1'>
-          <div className='text-xs font-semibold '>Gün toplam:</div>
+          <div className='text-xs font-semibold '>Gün toplam</div>
           <div>{occupancy[0]?.total}</div>
         </div>
       </div>

@@ -11,23 +11,22 @@ const DateCard = ({ date, current, total, details }: DateCardProps) => {
     <Link
       href={`/${date}`}
       className='flex flex-col rounded-xl p-2 px-4 shadow-md outline outline-1 outline-gray-300'
+      style={{ backgroundColor: "#CCCCFF" }}
     >
-      <div className='flex justify-center gap-1 [&>div:last-child]:!min-h-[80px]'>
+      <div className='flex justify-center gap-1 [&>div:last-child]:!min-h-[80px] '>
         <div>
           <div className='flex flex-col gap-1'>
-            <div className='text-lg font-semibold text-gray-500'>
+            <div className='text-lg font-semibold'>
               {date.split("-").reverse().join(".")}
             </div>
           </div>
           <div className='flex gap-6'>
             <div className='flex flex-col gap-1'>
-              <div className='text-xs font-semibold text-gray-500'>
-                Current:
-              </div>
+              <div className='text-xs font-semibold'>Anlık:</div>
               <div>{current}</div>
             </div>
             <div className='flex flex-col gap-1'>
-              <div className='text-xs font-semibold text-gray-500'>Total:</div>
+              <div className='text-xs font-semibold'>Toplam:</div>
               <div>{total}</div>
             </div>
           </div>
