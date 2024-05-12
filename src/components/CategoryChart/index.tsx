@@ -13,6 +13,7 @@ const CategoryChart = ({ categories, counts }: CategoryChartPros) => {
       height={350}
       type='pie'
       options={{
+        colors:["#7F00FF", "#0F52BA", "#0096FF", "#FF69B4", "#FF5F15"], 
         labels: categories,
         title: {
           text: "Ödünç Alınan Kitapların Kategori Dağılımı",

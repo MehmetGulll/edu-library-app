@@ -16,17 +16,17 @@ const DateCard = ({ date, current, total, details }: DateCardProps) => {
       <div className='flex justify-center gap-1 [&>div:last-child]:!min-h-[80px] '>
         <div>
           <div className='flex flex-col gap-1'>
-            <div className='text-lg font-semibold'>
+            <div className='text-lg font-semibold' style ={{color :'#2e3134'}}>
               {date.split("-").reverse().join(".")}
             </div>
           </div>
           <div className='flex gap-6'>
             <div className='flex flex-col gap-1'>
-              <div className='text-xs font-semibold'>Anlık:</div>
+              <div className='text-xs font-semibold' style ={{color :'#2e3134'}} >Anlık:</div>
               <div>{current}</div>
             </div>
             <div className='flex flex-col gap-1'>
-              <div className='text-xs font-semibold'>Toplam:</div>
+              <div className='text-xs font-semibold'style ={{color :'#2e3134'}}>Toplam:</div>
               <div>{total}</div>
             </div>
           </div>

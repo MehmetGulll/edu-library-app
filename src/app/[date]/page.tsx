@@ -5,6 +5,7 @@ import getLatestAnnouncements from "../../../utils/getLatestAnnouncements";
 import AnnouncementCard from "@/components/AnnouncementCard";
 import CategoryChart from "@/components/CategoryChart";
 import { getLibraryData } from "../../../utils/getLibraryData";
+import BorrowCardList from "@/components/BorrowCardList";
 
 export default async function DatePage({
   params,
@@ -13,6 +14,21 @@ export default async function DatePage({
 }) {
   const { occupancy } = await getOccupancyByDay(params.date);
   const borrow = await getBorrowByDay(params.date);
+  console.log(borrow);
+  const colors = ["#7F00FF", "#0F52BA", "#0096FF", "#FF69B4", "#FF5F15"];
+  let colorIndex = 0;
+  const transformedBorrows = borrow.borrow.map((b, index) => ({
+    id: b.id,
+    name: b.name,
+    author: b.author,
+    date: b.date,
+    category: b.category,
+    language: b.language,
+    shelf_number: b.shelf_number,
+    color: colors[index % colors.length] 
+  }));
+  
+  colorIndex = (colorIndex + 1) % colors.length;
 
   const { categoryCounts } = await getLibraryData(borrow);
 
@@ -28,8 +44,7 @@ export default async function DatePage({
   const announcementsFiltered = announcements.filter(
     (announcement) => announcement.date === params.date
   );
-  const colors = ["#7F00FF", "#0F52BA", "#0096FF", "#FF69B4", "#FF5F15"];
-  let colorIndex = 0;
+
   return (
     <div className='p-4'>
       <div className=' flex justify-center'>
@@ -76,25 +91,8 @@ export default async function DatePage({
             </h2>
           </div>
 
-          <div className='mt-5 grid grid-cols-1 gap-4 sm:grid-cols-4'>
-            {borrow.borrow.map(({ name, author, category, date }, index) => (
-              <div
-                key={name}
-                className='flex flex-col gap-1 rounded-lg border border-gray-300 p-4 shadow-md'
-                style={{ backgroundColor: colors[index % colors.length] }}
-              >
-                <div className='text-lg font-semibold text-zinc-50'>{name}</div>
-                <div className='text-sm font-semibold text-zinc-300'>
-                  {author}
-                </div>
-                <div className='text-sm font-semibold text-zinc-200'>
-                  {category}
-                </div>
-                <div className='text-sm font-semibold text-zinc-300'>
-                  {date}
-                </div>
-              </div>
-            ))}
+          <div className='mt-5 flex gap-4'>
+            <BorrowCardList borrows={transformedBorrows}/>
           </div>
         </div>
       </div>
