@@ -12,7 +12,7 @@ html {
 
 body {
   color: black;
-  background-color: #fafbfc;
+  background-color: #f5f6fa !important;
 }
 
 @layer utilities {

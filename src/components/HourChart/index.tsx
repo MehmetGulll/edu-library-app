@@ -29,6 +29,14 @@ const HourChart = ({ occupancy }: HourChartProps) => {
         },
         responsive: [
           {
+            breakpoint: 1440,
+            options: {
+              chart: {
+                height: 250,
+              },
+            },
+          },
+          {
             breakpoint: 640,
             options: {
               title: {
@@ -49,6 +57,9 @@ const HourChart = ({ occupancy }: HourChartProps) => {
           },
           labels: {
             show: true,
+            style: {
+              colors: "#7B91B0",
+            },
           },
           title: {
             text: "Saat",
@@ -58,6 +69,11 @@ const HourChart = ({ occupancy }: HourChartProps) => {
           {
             title: {
               text: "Toplam Doluluk",
+            },
+            labels: {
+              style: {
+                colors: "#7B91B0",
+              },
             },
           },
         ],

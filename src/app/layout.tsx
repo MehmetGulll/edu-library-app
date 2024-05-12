@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import "@mantine/core/styles.css";
 import "@mantine/carousel/styles.css";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600"] });
 
 export const metadata: Metadata = {
   title: "Edu Library",
@@ -20,11 +20,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={inter.className}>
-        <div className='mx-auto max-w-[1440px]'>
+      <body className={poppins.className}>
+        <div className='mx-auto max-w-[1440px] p-8'>
           <div className='flex min-h-screen flex-col'>
             <Navbar />
-            <div className='flex h-full flex-grow flex-col gap-8'>
+            <div className=' flex h-full flex-grow flex-col gap-8'>
               {children}
             </div>
             <Footer />

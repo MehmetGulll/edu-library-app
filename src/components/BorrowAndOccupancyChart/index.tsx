@@ -17,7 +17,7 @@ const BorrowAndOccupancyChart = ({
       height={350}
       type='line'
       options={{
-        colors: ["#49dcb1", "#000000"],
+        colors: ["#00E096", "#007DD6"],
         title: {
           text: "Ödünç Alınan Kitap Sayısı ve Toplam Doluluk",
           align: "center",

@@ -12,16 +12,14 @@ const DateCardList = ({ occupancies }: DateCardListProps) => {
     <MantineProvider>
       <Carousel
         slideSize='25%'
-        align='end'
-        initialSlide={occupancies.length - 1}
-        slideGap='8px'
+        align='start'
+        slideGap='32px'
         styles={{
           viewport: {
             padding: "4px",
           },
           controls: {
             marginInline: "-12px",
-           
           },
         }}
         dragFree
