@@ -11,7 +11,7 @@ const DateCard = ({ date, total, details }: DateCardProps) => {
   return (
     <Card className='cursor-pointer hover:bg-[#F8F9FA]'>
       <Link href={`/${date}`} className='flex flex-col'>
-        <div className='flex justify-center gap-1 [&>div:last-child]:!min-h-[80px]'>
+        <div className='flex items-center justify-center gap-1 [&>div:last-child]:!min-h-[80px]'>
           <div>
             <div
               className='mb-2 text-lg font-semibold'
