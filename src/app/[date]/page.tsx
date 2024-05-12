@@ -107,33 +107,39 @@ export default async function DatePage({
                 </div>
               )}
             {announcementsFiltered.length !== 0 && (
-              <div
-                id='announcements'
-                className='flex flex-col justify-center gap-4 '
-              >
-                <h2 className='text-2xl font-bold text-rose_pompadour-500'>
-                  Duyurular
-                </h2>
-                <div className='flex flex-wrap gap-8'>
-                  {announcements.map(
-                    ({ title, description, link, date, content }) => {
-                      const color = announcementColors[colorIndex];
-                      colorIndex = (colorIndex + 1) % announcementColors.length;
-                      return (
-                        <AnnouncementCard
-                          key={title}
-                          title={title}
-                          description={description}
-                          link={link}
-                          date={date}
-                          content={content}
-                          style={{ backgroundColor: color }}
-                        />
-                      );
-                    }
-                  )}
+              <Card>
+                <div
+                  id='announcements'
+                  className='flex flex-col justify-center gap-4 '
+                >
+                  <div className='items-center justify-center'>
+                    <h2 className='text-xl font-bold text-[#05004E] '>
+                      Günün Duyuruları
+                    </h2>
+                  </div>
+
+                  <div className='flex flex-wrap gap-8'>
+                    {announcementsFiltered.map(
+                      ({ title, description, link, date, content }) => {
+                        const color = announcementColors[colorIndex];
+                        colorIndex =
+                          (colorIndex + 1) % announcementColors.length;
+                        return (
+                          <AnnouncementCard
+                            key={title}
+                            title={title}
+                            description={description}
+                            link={link}
+                            date={date}
+                            content={content}
+                            style={{ backgroundColor: color }}
+                          />
+                        );
+                      }
+                    )}
+                  </div>
                 </div>
-              </div>
+              </Card>
             )}
           </>
         </>
