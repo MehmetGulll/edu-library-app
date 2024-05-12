@@ -50,54 +50,28 @@ export default async function Home() {
 
   return (
     <>
-<<<<<<< HEAD
       <div className='flex w-full flex-wrap gap-8'>
         <Card className='w-full scroll-mr-8 overflow-auto lg:w-[calc(75%-32px)]'>
           <div className='w-full min-w-[720px]'>
             <HourChart occupancy={occupancySorted} />
           </div>
-=======
-      <div className='flex w-full flex-wrap gap-8 my-8'>
-        <Card className='w-full lg:w-[calc(75%-32px)]'>
-          <HourChart occupancy={occupancySorted} />
->>>>>>> main
         </Card>
         <Card className=' w-full items-center lg:w-1/4'>
           <GradientRadialBar value={29} />
         </Card>
       </div>
-      <div className='flex justify-center'>
-        <h2 className='mb-1 text-2xl font-bold text-[#151D48]'>
-          Günlere Ait Doluluk
-        </h2>
-      </div>
+      <h2 className='mx-auto mt-4 text-xl font-bold text-[#05004E]'>
+        Günlere Ait Doluluk
+      </h2>
       <DateCardList occupancies={[...occupancyWithDetails].reverse()} />
       <AnnouncementList />
-<<<<<<< HEAD
 
-      <h2 className='ml-auto mr-auto text-2xl font-bold text-rose_pompadour-500'>
+      <h2 className='mx-auto mt-4 text-xl font-bold text-[#05004E]'>
         2024 Yılı Ödünç Kitap ve Doluluk Oranları
       </h2>
       <div className='flex w-full flex-wrap gap-8'>
         <Card className='w-full overflow-auto lg:w-[calc(66%-32px)]'>
           <div className='w-full min-w-[720px]'>
-=======
-      
-
-     
-      <div className='mt-8 flex flex-col justify-center items-center gap-4  p-8'>
-        <h2 className='mb-1 text-2xl font-bold text-[#151D48]'>
-          2024 Yılı Ödünç Kitap ve Doluluk Oranları
-        </h2>
-        <div className='flex w-full flex-wrap gap-2'>
-          <div
-            className='w-full  lg:w-[calc(66%-32px)]'
-            
-          >
-            <Card>
-
-          
->>>>>>> main
             <BorrowAndOccupancyChart
               dates={occuppancyFiltered.map((item) =>
                 item.date.split("-").reverse().join(".")
@@ -105,9 +79,7 @@ export default async function Home() {
               borrow={counts}
               occupancy={occuppancyFiltered.map(({ total }) => total)}
             />
-              </Card>
           </div>
-<<<<<<< HEAD
         </Card>
         <Card className='w-full lg:w-1/3'>
           <CategoryChart
@@ -115,25 +87,7 @@ export default async function Home() {
             counts={categoryCounts.map(({ data }) => data)}
           />
         </Card>
-=======
-
-          <div
-            className='w-full  lg:w-1/3'
-            style={{ backgroundColor: "#F0FFFF" }}
-          >
-            <Card>
-
-          
-            <CategoryChart
-              categories={categoryCounts.map(({ name }) => name)}
-              counts={categoryCounts.map(({ data }) => data)}
-            />
-              </Card>
-          </div>
-        </div>
->>>>>>> main
       </div>
-      
     </>
   );
 }

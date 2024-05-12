@@ -25,7 +25,7 @@ const DateCardList = ({ occupancies }: DateCardListProps) => {
         dragFree
         controlsOffset={"0px"}
       >
-        {[...occupancies].splice(50).map((occupancy) => (
+        {occupancies.map((occupancy) => (
           <Carousel.Slide>
             <DateCard {...occupancy} key={occupancy.date} />
           </Carousel.Slide>

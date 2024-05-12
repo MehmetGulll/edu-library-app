@@ -50,11 +50,11 @@ const GradientRadialBar = ({ value }: GradientRadialBarProps) => {
                     offsetY: -10,
                     show: true,
                     color: "#151D48",
-                    fontSize: "17px",
+                    fontSize: "14px",
                   },
                   value: {
                     color: "#0095FF",
-                    fontSize: "36px",
+                    fontSize: "32px",
                     show: true,
                   },
                 },
