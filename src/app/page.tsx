@@ -57,7 +57,13 @@ export default async function Home() {
           </div>
         </Card>
         <Card className=' w-full items-center lg:w-1/4'>
-          <GradientRadialBar value={29} />
+          <GradientRadialBar
+            value={
+              Math.round(
+                occupancySorted[occupancySorted.length - 1].current / 1250
+              ) * 100
+            }
+          />
         </Card>
       </div>
       <h2 className='mx-auto mt-4 text-xl font-bold text-[#05004E]'>

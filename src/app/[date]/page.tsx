@@ -60,6 +60,9 @@ export default async function DatePage({
       announcement.date === params.date.split("-").reverse().join(".")
   );
 
+  const latestOccupancy = occupancySorted[occupancySorted.length - 1];
+  console.log("🚀 ~ latestOccupancy:", latestOccupancy);
+
   return (
     <>
       <div className=' flex justify-center'>
@@ -80,7 +83,9 @@ export default async function DatePage({
               <HourChart occupancy={occupancySorted} />
             </Card>
             <Card className='flex w-full items-center lg:w-1/4'>
-              <GradientRadialBar value={29} />
+              <GradientRadialBar
+                value={Math.round(latestOccupancy.current / 1250) * 100}
+              />
             </Card>
           </div>
           <>

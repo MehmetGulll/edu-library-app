@@ -24,7 +24,7 @@ const BorrowAndOccupancyChart = ({
           style: {
             color: "#151D48",
             fontSize: "14px",
-            fontWeight:'600'
+            fontWeight: "600",
           },
         },
         responsive: [
@@ -44,17 +44,39 @@ const BorrowAndOccupancyChart = ({
           tooltip: {
             enabled: false,
           },
+          labels: {
+            show: true,
+            style: {
+              colors: "#7B91B0",
+            },
+          },
         },
         yaxis: [
           {
             opposite: true,
             title: {
               text: "Ödünç Kitap Sayısı",
+              style: {
+                color: "#05004E",
+              },
+            },
+            labels: {
+              style: {
+                colors: "#7B91B0",
+              },
             },
           },
           {
             title: {
               text: "Toplam Doluluk",
+              style: {
+                color: "#05004E",
+              },
+            },
+            labels: {
+              style: {
+                colors: "#7B91B0",
+              },
             },
           },
         ],
