@@ -5,15 +5,15 @@ import OccupancyCard from "../OccupancyCard";
 import getLatestAnnouncements from "../../../utils/getLatestAnnouncements";
 const Navbar = async () => {
   const { announcements } = await getLatestAnnouncements();
-  console.log(announcements[0].description);
 
   return (
     <>
       <style>
-      {`
+        {`
           @keyframes slide {
             0% { transform: translateX(0); }
-            100% { transform: translateX(-80%); }
+            50% { transform: translateX(-80%); }
+            100% { transform: translateX(0); }
           }
           .marquee {
             width: max-content;
@@ -28,10 +28,22 @@ const Navbar = async () => {
       </style>
       <div className='flex flex-col items-end gap-1'>
         <div className='flex flex-row px-4 pt-1'>
-          <div className='marquee '>
-            <h2 className='text-xl font-bold text-rose_pompadour-300'>
-              Son Duyuru:
-            </h2>
+          <div className='marquee items-center'>
+            <div className='flex flex-row items-center'>
+              <img
+                src='https://t4.ftcdn.net/jpg/04/92/72/37/360_F_492723759_RVbG37GeTbulDZJV2wdZJ9MHyTJs5Kbm.jpg'
+                alt=''
+                style={{
+                  mixBlendMode: "multiply",
+                  width: "80px",
+                  height: "50px",
+                }}
+              />
+              <h2 className='text-xl font-bold text-rose_pompadour-300'>
+                Son Duyuru:
+              </h2>
+            </div>
+
             <h2 className='text-lg font-bold text-rose_pompadour-500'>
               {announcements[0].title}
             </h2>
