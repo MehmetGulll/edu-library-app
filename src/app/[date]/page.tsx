@@ -61,7 +61,6 @@ export default async function DatePage({
   );
 
   const latestOccupancy = occupancySorted[occupancySorted.length - 1];
-  console.log("🚀 ~ latestOccupancy:", latestOccupancy);
 
   return (
     <>
@@ -122,7 +121,6 @@ export default async function DatePage({
                       Günün Duyuruları
                     </h2>
                   </div>
-
                   <div className='flex flex-wrap gap-8'>
                     {announcementsFiltered.map(
                       ({ title, description, link, date, content }) => {
