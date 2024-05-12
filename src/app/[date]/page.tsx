@@ -48,45 +48,30 @@ export default async function DatePage({
   return (
     <div className='p-4'>
       <div className=' flex justify-center'>
-        <h1 className='text-align:center text-xl font-normal text-indigo-500 md:font-bold '>
+        <h1 className='mb-1 text-2xl font-bold text-[#151D48] '>
           {params.date} Tarihindeki Doluluk Oranları
         </h1>
       </div>
 
-      <div className='mb-8 mt-5 flex w-full flex-wrap gap-2'>
-        <div
-          className='w-full rounded-xl border border-gray-300 p-2 shadow-md lg:w-[calc(66%-8px)]'
-          style={{ backgroundColor: "#F0FFFF" }}
-        >
+      <div className='mt-5 flex w-full flex-wrap gap-8'>
+        <Card className='w-full lg:w-[calc(75%-32px)]'>
           <HourChart occupancy={occupancySorted} />
-        </div>
-        <div
-          className='w-full rounded-xl border border-gray-300 p-2 shadow-md lg:w-1/3'
-          style={{ backgroundColor: "#F0FFFF" }}
-        >
-          <GradientRadialBar
-            value={
-              Math.round(occupancy[occupancy.length - 1].current / 1250) * 100
-            }
-          />
-        </div>
+        </Card>
+        <Card className='flex w-full items-center lg:w-1/4'>
+          <GradientRadialBar value={29} />
+        </Card>
       </div>
 
       {transformedBorrows.length !== 0 && (
-        <div className='mb-8 flex w-full flex-wrap gap-2'>
+        <div className='my-8 mb-8 flex w-full flex-wrap gap-2'>
           <Card>
-            
-              <CategoryChart
-                categories={categoryCounts.map(({ name }) => name)}
-                counts={categoryCounts.map(({ data }) => data)}
-              />
-      
+            <CategoryChart
+              categories={categoryCounts.map(({ name }) => name)}
+              counts={categoryCounts.map(({ data }) => data)}
+            />
           </Card>
-        
-          <Card
-            className='w-full lg:w-[calc(66%-32px)]'
-         
-          >
+
+          <Card className='w-full lg:w-[calc(66%-32px)]'>
             <div className='flex justify-center'>
               <h2 className='mb-1 text-2xl font-bold text-[#151D48]'>
                 Ödünç Kitaplar
@@ -97,7 +82,6 @@ export default async function DatePage({
               <BorrowCardList borrows={transformedBorrows} />
             </div>
           </Card>
-       
         </div>
       )}
       {announcementsFiltered.length !== 0 && (
