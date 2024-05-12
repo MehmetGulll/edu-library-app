@@ -21,14 +21,14 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <div className="max-w-1200 mx-auto">
-
-        
-        <div className='flex min-h-screen flex-col'>
-          <Navbar />
-          <div className='h-full flex-grow'>{children}</div>
-          <Footer />
-        </div>
+        <div className='mx-auto max-w-[1440px]'>
+          <div className='flex min-h-screen flex-col'>
+            <Navbar />
+            <div className='flex h-full flex-grow flex-col gap-8'>
+              {children}
+            </div>
+            <Footer />
+          </div>
         </div>
       </body>
     </html>

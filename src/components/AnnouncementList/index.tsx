@@ -7,10 +7,7 @@ const AnnouncementList = async () => {
   const colors = ["#7F00FF", "#0F52BA", "#0096FF", "#FF69B4", "#FF5F15"];
   let colorIndex = 0;
   return (
-    <div
-      id='announcements'
-      className='flex flex-col justify-center gap-4 rounded-lg border border-gray-300 p-8  shadow-md'
-    >
+    <div id='announcements'>
       <div className='flex justify-center'>
         <h2 className='text-2xl font-bold text-rose_pompadour-500'>
           Duyurular

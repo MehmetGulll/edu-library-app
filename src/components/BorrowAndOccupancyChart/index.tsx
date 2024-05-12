@@ -46,14 +46,14 @@ const BorrowAndOccupancyChart = ({
         },
         yaxis: [
           {
-            title: {
-              text: "Toplam Doluluk",
-            },
-          },
-          {
             opposite: true,
             title: {
               text: "Ödünç Kitap Sayısı",
+            },
+          },
+          {
+            title: {
+              text: "Toplam Doluluk",
             },
           },
         ],

@@ -5,6 +5,9 @@ import { getAllOccupancy, getBorrow } from "@/api";
 import BorrowAndOccupancyChart from "@/components/BorrowAndOccupancyChart";
 import CategoryChart from "@/components/CategoryChart";
 import DateCardList from "@/components/DateCardList";
+import HourChart from "@/components/HourChart";
+import GradientRadialBar from "@/components/GradientRadialBar";
+import Card from "@/components/Card";
 
 export default async function Home() {
   const borrowData = await getBorrow();
@@ -28,13 +31,44 @@ export default async function Home() {
     );
     return {
       ...item,
+      current:
+        allOccupancyFromThatDate[allOccupancyFromThatDate.length - 1].current,
+      total:
+        allOccupancyFromThatDate[allOccupancyFromThatDate.length - 1].total,
       details: allOccupancyFromThatDate,
     };
   });
 
+  const occupancySorted = [
+    ...occupancyWithDetails[occupancyWithDetails.length - 1].details,
+  ].sort((a, b) => {
+    return a.date
+      .split("T")[1]
+      .split(":")[0]
+      .localeCompare(b.date.split("T")[1].split(":")[0]);
+  });
+
   return (
-    <div className='p-4'>
-      <div className='mb-8 flex flex-col justify-center gap-4 rounded-lg border border-gray-300 p-8 shadow-md'>
+    <>
+      <div className='flex w-full flex-wrap gap-8'>
+        <Card className='w-full lg:w-[calc(75%-32px)]'>
+          <HourChart occupancy={occupancySorted} />
+        </Card>
+        <Card className='flex w-full items-center lg:w-1/4'>
+          <GradientRadialBar value={29} />
+        </Card>
+      </div>
+      <div className='flex justify-center'>
+        <h2 className='text-2xl font-bold text-rose_pompadour-500'>
+          Günlere Ait Doluluk
+        </h2>
+      </div>
+      <DateCardList occupancies={occupancyWithDetails} />
+      <AnnouncementList />
+      <div className='mt-8 flex flex-col justify-center gap-4 rounded-lg border border-gray-300 p-8 shadow-md'>
+        <h2 className='ml-auto mr-auto text-2xl font-bold text-rose_pompadour-500'>
+          2024 Yılı Ödünç Kitap ve Doluluk Oranları
+        </h2>
         <div className='flex w-full flex-wrap gap-2'>
           <div
             className='w-full rounded-xl border border-gray-300 p-2 shadow-md lg:w-[calc(66%-8px)]'
@@ -58,14 +92,7 @@ export default async function Home() {
             />
           </div>
         </div>
-        <div className='flex justify-center'>
-          <h2 className='text-2xl font-bold text-rose_pompadour-500'>
-            Geçmiş Günlük Verileri
-          </h2>
-        </div>
-        <DateCardList occupancies={occupancyWithDetails} />
       </div>
-      <AnnouncementList />
-    </div>
+    </>
   );
 }

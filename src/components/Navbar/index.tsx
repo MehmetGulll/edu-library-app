@@ -51,11 +51,8 @@ const Navbar = async () => {
 
           <OpenWeather />
         </div>
-        <div
-          className='flex w-full flex-row items-center justify-between gap-4 border-y px-4 py-6'
-          style={{ background: "linear-gradient(to right, #7120f5,#a066ff)" }}
-        >
-          <div className='rounded-lg bg-rose_pompadour-500  text-white transition-colors hover:bg-rose_pompadour-400'>
+        <div className='flex w-full flex-row items-center justify-between gap-4 border-y bg-white px-4 py-6'>
+          <div className='rounded-lg bg-[#5D5FEF] text-white'>
             <OccupancyCard />
           </div>
           <img
@@ -65,7 +62,7 @@ const Navbar = async () => {
             style={{ mixBlendMode: "multiply", width: "100px", height: "50px" }}
           />
           <div className='flex items-center gap-4'>
-            <div className='rounded-lg bg-rose_pompadour-500  text-white transition-colors hover:bg-rose_pompadour-400'>
+            <div className='rounded-lg bg-[#5D5FEF]  text-white transition-colors hover:bg-rose_pompadour-400'>
               <WorkingHours />
             </div>
             <a

@@ -64,6 +64,7 @@ export const getCurrentOccupancy = async () => {
 export const getAllOccupancy = async () => {
   const { data } = await client.query<GetOccupancyQuery>({
     query: GetOccupancyDocument,
+    fetchPolicy: "network-only",
   });
 
   return data;

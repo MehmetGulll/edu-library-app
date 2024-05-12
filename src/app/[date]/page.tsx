@@ -14,7 +14,6 @@ export default async function DatePage({
 }) {
   const { occupancy } = await getOccupancyByDay(params.date);
   const borrow = await getBorrowByDay(params.date);
-  console.log(borrow);
   const colors = ["#7F00FF", "#0F52BA", "#0096FF", "#FF69B4", "#FF5F15"];
   let colorIndex = 0;
   const transformedBorrows = borrow.borrow.map((b, index) => ({
@@ -25,9 +24,9 @@ export default async function DatePage({
     category: b.category,
     language: b.language,
     shelf_number: b.shelf_number,
-    color: colors[index % colors.length] 
+    color: colors[index % colors.length],
   }));
-  
+
   colorIndex = (colorIndex + 1) % colors.length;
 
   const { categoryCounts } = await getLibraryData(borrow);
@@ -71,31 +70,33 @@ export default async function DatePage({
           />
         </div>
       </div>
-      <div className='mb-8 flex w-full flex-wrap gap-2'>
-        <div
-          className='w-full rounded-xl border border-gray-300 p-2 shadow-md lg:w-1/3'
-          style={{ backgroundColor: "#F0FFFF" }}
-        >
-          <CategoryChart
-            categories={categoryCounts.map(({ name }) => name)}
-            counts={categoryCounts.map(({ data }) => data)}
-          />
-        </div>
-        <div
-          className='w-full rounded-xl border border-gray-300 p-2 shadow-md lg:w-[calc(66%-8px)]'
-          style={{ backgroundColor: "#F0FFFF" }}
-        >
-          <div className='flex justify-center'>
-            <h2 className='text-2xl font-bold text-rose_pompadour-500'>
-              Ödünç Kitaplar
-            </h2>
+      {transformedBorrows.length !== 0 && (
+        <div className='mb-8 flex w-full flex-wrap gap-2'>
+          <div
+            className='w-full rounded-xl border border-gray-300 p-2 shadow-md lg:w-1/3'
+            style={{ backgroundColor: "#F0FFFF" }}
+          >
+            <CategoryChart
+              categories={categoryCounts.map(({ name }) => name)}
+              counts={categoryCounts.map(({ data }) => data)}
+            />
           </div>
+          <div
+            className='w-full rounded-xl border border-gray-300 p-2 shadow-md lg:w-[calc(66%-8px)]'
+            style={{ backgroundColor: "#F0FFFF" }}
+          >
+            <div className='flex justify-center'>
+              <h2 className='text-2xl font-bold text-rose_pompadour-500'>
+                Ödünç Kitaplar
+              </h2>
+            </div>
 
-          <div className='mt-5 flex gap-4'>
-            <BorrowCardList borrows={transformedBorrows}/>
+            <div className='mt-5 flex gap-4'>
+              <BorrowCardList borrows={transformedBorrows} />
+            </div>
           </div>
         </div>
-      </div>
+      )}
       {announcementsFiltered.length !== 0 && (
         <div
           id='announcements'
