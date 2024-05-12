@@ -50,7 +50,7 @@ export default async function Home() {
 
   return (
     <>
-      <div className='flex w-full flex-wrap gap-8'>
+      <div className='flex w-full flex-wrap gap-8 my-8'>
         <Card className='w-full lg:w-[calc(75%-32px)]'>
           <HourChart occupancy={occupancySorted} />
         </Card>
@@ -59,21 +59,27 @@ export default async function Home() {
         </Card>
       </div>
       <div className='flex justify-center'>
-        <h2 className='text-2xl font-bold text-rose_pompadour-500'>
+        <h2 className='mb-1 text-2xl font-bold text-[#151D48]'>
           Günlere Ait Doluluk
         </h2>
       </div>
       <DateCardList occupancies={occupancyWithDetails} />
       <AnnouncementList />
-      <div className='mt-8 flex flex-col justify-center gap-4 rounded-lg border border-gray-300 p-8 shadow-md'>
-        <h2 className='ml-auto mr-auto text-2xl font-bold text-rose_pompadour-500'>
+      
+
+     
+      <div className='mt-8 flex flex-col justify-center items-center gap-4  p-8'>
+        <h2 className='mb-1 text-2xl font-bold text-[#151D48]'>
           2024 Yılı Ödünç Kitap ve Doluluk Oranları
         </h2>
         <div className='flex w-full flex-wrap gap-2'>
           <div
-            className='w-full rounded-xl border border-gray-300 p-2 shadow-md lg:w-[calc(66%-8px)]'
-            style={{ backgroundColor: "#F0FFFF" }}
+            className='w-full  lg:w-[calc(66%-32px)]'
+            
           >
+            <Card>
+
+          
             <BorrowAndOccupancyChart
               dates={occuppancyFiltered.map((item) =>
                 item.date.split("-").reverse().join(".")
@@ -81,18 +87,25 @@ export default async function Home() {
               borrow={counts}
               occupancy={occuppancyFiltered.map(({ total }) => total)}
             />
+              </Card>
           </div>
+
           <div
-            className='w-full rounded-xl border border-gray-300 p-2 shadow-md lg:w-1/3'
+            className='w-full  lg:w-1/3'
             style={{ backgroundColor: "#F0FFFF" }}
           >
+            <Card>
+
+          
             <CategoryChart
               categories={categoryCounts.map(({ name }) => name)}
               counts={categoryCounts.map(({ data }) => data)}
             />
+              </Card>
           </div>
         </div>
       </div>
+      
     </>
   );
 }
