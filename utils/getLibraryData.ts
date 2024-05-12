@@ -1,25 +1,31 @@
 import { getBorrow } from "@/api";
+import { GetBorrowByDayQuery, GetBorrowQuery } from "@/generated/graphql";
 
 function translateCategory(category: string): string {
   const translations: { [key: string]: string } = {
-    'Science': 'Bilim',
-    'Law': 'Hukuk',
-    'Language and Literature': 'Dil ve Edebiyat',
-    'Technology': 'Teknoloji',
-    'Social Sciences': 'Sosyal Bilimler',
-    'Philosophy, Psychology, Religion': 'Felsefe, Psikoloji, Din',
-    'Fine Arts': 'Güzel Sanatlar',
-    'Arts & recreation': 'Sanat ve Eğlence',
-    'Literature': 'Edebiyat'
+    Science: "Bilim",
+    Law: "Hukuk",
+    "Language and Literature": "Dil ve Edebiyat",
+    Technology: "Teknoloji",
+    "Social Sciences": "Sosyal Bilimler",
+    "Philosophy, Psychology, Religion": "Felsefe, Psikoloji, Din",
+    "Fine Arts": "Güzel Sanatlar",
+    "Arts & recreation": "Sanat ve Eğlence",
+    Literature: "Edebiyat",
+    "World History and History of Europe, Asia, Africa, Australia, New Zealand, etc.":
+      "Dünya Tarihi",
   };
   return translations[category] || category;
 }
 
-export async function getLibraryData() {
-  const data = await getBorrow();
-
-  const groupedByDate = data.borrow.reduce(
-    (acc: { [key: string]: any[] }, item) => {
+export async function getLibraryData(
+  data: GetBorrowQuery | GetBorrowByDayQuery | undefined
+) {
+  if (!data?.borrow) {
+    return { dates: [], counts: [], categoryCounts: [] };
+  }
+  const groupedByDate = data.borrow?.reduce(
+    (acc: { [key: string]: NonNullable<typeof data.borrow>[0][] }, item) => {
       if (!acc[item.date as keyof typeof acc]) {
         acc[item.date] = [];
       }
@@ -28,18 +34,14 @@ export async function getLibraryData() {
     },
     {}
   );
-  const dates = Object.keys(groupedByDate)
-    .filter((_, index) => index % 4 === 0)
-    .map((dateStr) => {
-      const [year, month, day] = dateStr.split("-");
-      return `${day}.${month}.${year}`;
-    });
+  const dates = Object.keys(groupedByDate).map((dateStr) => {
+    const [year, month, day] = dateStr.split("-");
+    return `${day}.${month}.${year}`;
+  });
 
-  const counts = Object.values(groupedByDate)
-    .filter((_, index) => index % 4 === 0)
-    .map((items) => items.length);
+  const counts = Object.values(groupedByDate).map((items) => items.length);
 
-  const groupedByCategory = data.borrow.reduce(
+  const groupedByCategory = data.borrow?.reduce(
     (acc: { [key: string]: any[] }, item) => {
       if (!acc[item.category as keyof typeof acc]) {
         acc[item.category] = [];

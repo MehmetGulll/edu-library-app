@@ -2,6 +2,10 @@
 import { ApexOptions } from "apexcharts";
 import dynamic from "next/dynamic";
 import LoadingOverlay from "../LoadingOverlay";
+import { createContext, useContext } from "react";
+import deepMerge from "../../../utils/deepMerge";
+
+const LoadingValueContext = createContext<ChartProps | null>(null);
 
 type ChartType =
   | "line"
@@ -27,14 +31,24 @@ interface ChartProps {
   options?: ApexOptions;
   width?: string | number;
   height?: string | number;
+  loaderSize?: number;
 }
 const ApexChart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
-  loading: () => (
-    <div className='relative h-[365px] w-full'>
-      <LoadingOverlay />
-    </div>
-  ),
+  loading: () => {
+    const props = useContext(LoadingValueContext);
+    return (
+      <div
+        className='relative w-full'
+        style={{
+          height: props?.height || "365px",
+          width: props?.width || "100%",
+        }}
+      >
+        <LoadingOverlay size={props?.loaderSize} />
+      </div>
+    );
+  },
 });
 
 const defaultOptions: ApexOptions = {
@@ -46,26 +60,22 @@ const defaultOptions: ApexOptions = {
       show: false,
     },
   },
-  dataLabels: {
-    enabled: true,
-  },
   stroke: {
     curve: "smooth",
   },
   title: {
     align: "center",
   },
-  grid: {
-    row: {
-      colors: ["#daf8ef", "transparent"],
-      opacity: 0.5,
-    },
-  },
 };
 
 const Chart = ({ ...props }: ChartProps) => {
   return (
-    <ApexChart {...props} options={{ ...defaultOptions, ...props.options }} />
+    <LoadingValueContext.Provider value={props}>
+      <ApexChart
+        {...props}
+        options={deepMerge(defaultOptions, props.options ?? {})}
+      />
+    </LoadingValueContext.Provider>
   );
 };
 

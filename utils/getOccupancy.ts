@@ -5,15 +5,16 @@ export type DateFormat = `${number}.${number}.${number}`;
 
 interface Occupancy {
   total: string;
-  currentOccupancy: string;
+  current: string;
   capacity: string;
+  date?: DateFormat;
 }
 
 type GetOccupancy = (date: DateFormat) => Promise<Occupancy>;
 
 const getOccupancy: GetOccupancy = async (date) => {
   try {
-    console.log("Fetching", date);
+    console.info("Fetching", date);
     const response = await fetch(url + `?date_baslama=${date}`);
     const html = await response.text();
 
@@ -28,14 +29,14 @@ const getOccupancy: GetOccupancy = async (date) => {
     const splitted = parsedHtml.split("\n").slice(1, 4);
 
     const total = splitted[0].split(": ")[1];
-    const currentOccupancy = splitted[1].split(": ")[1];
+    const current = splitted[1].split(": ")[1];
     const capacity = splitted[2].split(": ")[1];
 
-    return { total, currentOccupancy, capacity };
+    return { total, current, capacity };
   } catch (error) {
     // retry
     console.error("Error", error);
-    return { total: "0", currentOccupancy: "0", capacity: "0" };
+    return { total: "0", current: "0", capacity: "0" };
   }
 };
 
@@ -44,15 +45,10 @@ const flipDate = (date: DateFormat) => {
   return `${month}.${day}.${year}`;
 };
 
-export interface OccupancyWithDate {
-  date: DateFormat;
-  occupancy: Occupancy;
-}
-
 type GetOccupancyByDateRange = (
   start: DateFormat,
   end: DateFormat
-) => OccupancyWithDate[];
+) => Occupancy[];
 
 const getOccupancyByDateRange: GetOccupancyByDateRange = (start, end) => {
   const startDate = new Date(flipDate(start));
@@ -74,12 +70,12 @@ const getOccupancyByDateRange: GetOccupancyByDateRange = (start, end) => {
   }
 
   let progress = 0;
-  const result: OccupancyWithDate[] = [];
+  const result: Occupancy[] = [];
   const fetchOc = async () => {
     for (const date of dateRange) {
       let occupancy = await getOccupancy(date as DateFormat);
       progress++;
-      console.log(
+      console.info(
         "Fetced",
         date,
         occupancy.total,
@@ -94,7 +90,7 @@ const getOccupancyByDateRange: GetOccupancyByDateRange = (start, end) => {
         "occupancy.json",
         JSON.stringify({ date, occupancy }, null, 2)
       );
-      result.push({ date: date as DateFormat, occupancy });
+      result.push({ date: date as DateFormat, ...occupancy });
     }
   };
   fetchOc();
@@ -110,7 +106,7 @@ const checkOccupancyIfitIsReallyZero = async () => {
   for (const oc of ocs) {
     const occupancy = await getOccupancy(oc.date);
     progress++;
-    console.log(
+    console.info(
       "Fetced",
       oc.date,
       occupancy.total,
@@ -120,7 +116,7 @@ const checkOccupancyIfitIsReallyZero = async () => {
       ocs.length
     );
     if (occupancy.total !== "0") {
-      console.log("Occupancy is not 0", oc.date, occupancy.total);
+      console.info("Occupancy is not 0", oc.date, occupancy.total);
       fs.writeFileSync(
         "occupancy.json",
         JSON.stringify(

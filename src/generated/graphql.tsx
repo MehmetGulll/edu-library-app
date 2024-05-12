@@ -1248,6 +1248,13 @@ export type GetBorrowQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetBorrowQuery = { __typename?: 'query_root', borrow: Array<{ __typename?: 'borrow', category: string, date: any }> };
 
+export type GetBorrowByDayQueryVariables = Exact<{
+  date: Scalars['date']['input'];
+}>;
+
+
+export type GetBorrowByDayQuery = { __typename?: 'query_root', borrow: Array<{ __typename?: 'borrow', author: string, category: string, date: any, id: number, language: string, name: string, shelf_number: string }> };
+
 export type InsertOccupancyMutationVariables = Exact<{
   occupancy: Occupancy_Insert_Input;
 }>;
@@ -1255,10 +1262,7 @@ export type InsertOccupancyMutationVariables = Exact<{
 
 export type InsertOccupancyMutation = { __typename?: 'mutation_root', insert_occupancy_one?: { __typename?: 'occupancy', date: any } | null };
 
-export type GetOccupancyQueryVariables = Exact<{
-  start: Scalars['timestamp']['input'];
-  end: Scalars['timestamp']['input'];
-}>;
+export type GetOccupancyQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetOccupancyQuery = { __typename?: 'query_root', occupancy: Array<{ __typename?: 'occupancy', current: number, date: any, id: number, libary_id: number, total: number }> };
@@ -1268,10 +1272,18 @@ export type GetLastOccupancyQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetLastOccupancyQuery = { __typename?: 'query_root', occupancy: Array<{ __typename?: 'occupancy', current: number, date: any, id: number, libary_id: number, total: number }> };
 
+export type GetOccupancyByDayQueryVariables = Exact<{
+  start: Scalars['timestamp']['input'];
+  end: Scalars['timestamp']['input'];
+}>;
+
+
+export type GetOccupancyByDayQuery = { __typename?: 'query_root', occupancy: Array<{ __typename?: 'occupancy', current: number, date: any, id: number, libary_id: number, total: number }> };
+
 
 export const GetBorrowDocument = gql`
     query getBorrow {
-  borrow {
+  borrow(where: {date: {_gte: "2023-12-31"}}, order_by: {date: asc}) {
     category
     date
   }
@@ -1309,6 +1321,52 @@ export type GetBorrowQueryHookResult = ReturnType<typeof useGetBorrowQuery>;
 export type GetBorrowLazyQueryHookResult = ReturnType<typeof useGetBorrowLazyQuery>;
 export type GetBorrowSuspenseQueryHookResult = ReturnType<typeof useGetBorrowSuspenseQuery>;
 export type GetBorrowQueryResult = Apollo.QueryResult<GetBorrowQuery, GetBorrowQueryVariables>;
+export const GetBorrowByDayDocument = gql`
+    query getBorrowByDay($date: date!) {
+  borrow(where: {date: {_gte: $date, _lte: $date}}, order_by: {date: asc}) {
+    author
+    category
+    date
+    id
+    language
+    name
+    shelf_number
+  }
+}
+    `;
+
+/**
+ * __useGetBorrowByDayQuery__
+ *
+ * To run a query within a React component, call `useGetBorrowByDayQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetBorrowByDayQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetBorrowByDayQuery({
+ *   variables: {
+ *      date: // value for 'date'
+ *   },
+ * });
+ */
+export function useGetBorrowByDayQuery(baseOptions: Apollo.QueryHookOptions<GetBorrowByDayQuery, GetBorrowByDayQueryVariables> & ({ variables: GetBorrowByDayQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetBorrowByDayQuery, GetBorrowByDayQueryVariables>(GetBorrowByDayDocument, options);
+      }
+export function useGetBorrowByDayLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetBorrowByDayQuery, GetBorrowByDayQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetBorrowByDayQuery, GetBorrowByDayQueryVariables>(GetBorrowByDayDocument, options);
+        }
+export function useGetBorrowByDaySuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetBorrowByDayQuery, GetBorrowByDayQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetBorrowByDayQuery, GetBorrowByDayQueryVariables>(GetBorrowByDayDocument, options);
+        }
+export type GetBorrowByDayQueryHookResult = ReturnType<typeof useGetBorrowByDayQuery>;
+export type GetBorrowByDayLazyQueryHookResult = ReturnType<typeof useGetBorrowByDayLazyQuery>;
+export type GetBorrowByDaySuspenseQueryHookResult = ReturnType<typeof useGetBorrowByDaySuspenseQuery>;
+export type GetBorrowByDayQueryResult = Apollo.QueryResult<GetBorrowByDayQuery, GetBorrowByDayQueryVariables>;
 export const InsertOccupancyDocument = gql`
     mutation InsertOccupancy($occupancy: occupancy_insert_input!) {
   insert_occupancy_one(object: $occupancy) {
@@ -1343,8 +1401,8 @@ export type InsertOccupancyMutationHookResult = ReturnType<typeof useInsertOccup
 export type InsertOccupancyMutationResult = Apollo.MutationResult<InsertOccupancyMutation>;
 export type InsertOccupancyMutationOptions = Apollo.BaseMutationOptions<InsertOccupancyMutation, InsertOccupancyMutationVariables>;
 export const GetOccupancyDocument = gql`
-    query getOccupancy($start: timestamp!, $end: timestamp!) {
-  occupancy(where: {date: {_gte: $start, _lte: $end}}) {
+    query getOccupancy {
+  occupancy(where: {date: {_gte: "2024-1-1"}}, order_by: {date: asc}) {
     current
     date
     id
@@ -1366,12 +1424,10 @@ export const GetOccupancyDocument = gql`
  * @example
  * const { data, loading, error } = useGetOccupancyQuery({
  *   variables: {
- *      start: // value for 'start'
- *      end: // value for 'end'
  *   },
  * });
  */
-export function useGetOccupancyQuery(baseOptions: Apollo.QueryHookOptions<GetOccupancyQuery, GetOccupancyQueryVariables> & ({ variables: GetOccupancyQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+export function useGetOccupancyQuery(baseOptions?: Apollo.QueryHookOptions<GetOccupancyQuery, GetOccupancyQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<GetOccupancyQuery, GetOccupancyQueryVariables>(GetOccupancyDocument, options);
       }
@@ -1430,6 +1486,51 @@ export type GetLastOccupancyQueryHookResult = ReturnType<typeof useGetLastOccupa
 export type GetLastOccupancyLazyQueryHookResult = ReturnType<typeof useGetLastOccupancyLazyQuery>;
 export type GetLastOccupancySuspenseQueryHookResult = ReturnType<typeof useGetLastOccupancySuspenseQuery>;
 export type GetLastOccupancyQueryResult = Apollo.QueryResult<GetLastOccupancyQuery, GetLastOccupancyQueryVariables>;
+export const GetOccupancyByDayDocument = gql`
+    query getOccupancyByDay($start: timestamp!, $end: timestamp!) {
+  occupancy(where: {date: {_gte: $start, _lte: $end}}, order_by: {date: asc}) {
+    current
+    date
+    id
+    libary_id
+    total
+  }
+}
+    `;
+
+/**
+ * __useGetOccupancyByDayQuery__
+ *
+ * To run a query within a React component, call `useGetOccupancyByDayQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetOccupancyByDayQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetOccupancyByDayQuery({
+ *   variables: {
+ *      start: // value for 'start'
+ *      end: // value for 'end'
+ *   },
+ * });
+ */
+export function useGetOccupancyByDayQuery(baseOptions: Apollo.QueryHookOptions<GetOccupancyByDayQuery, GetOccupancyByDayQueryVariables> & ({ variables: GetOccupancyByDayQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetOccupancyByDayQuery, GetOccupancyByDayQueryVariables>(GetOccupancyByDayDocument, options);
+      }
+export function useGetOccupancyByDayLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetOccupancyByDayQuery, GetOccupancyByDayQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetOccupancyByDayQuery, GetOccupancyByDayQueryVariables>(GetOccupancyByDayDocument, options);
+        }
+export function useGetOccupancyByDaySuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetOccupancyByDayQuery, GetOccupancyByDayQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetOccupancyByDayQuery, GetOccupancyByDayQueryVariables>(GetOccupancyByDayDocument, options);
+        }
+export type GetOccupancyByDayQueryHookResult = ReturnType<typeof useGetOccupancyByDayQuery>;
+export type GetOccupancyByDayLazyQueryHookResult = ReturnType<typeof useGetOccupancyByDayLazyQuery>;
+export type GetOccupancyByDaySuspenseQueryHookResult = ReturnType<typeof useGetOccupancyByDaySuspenseQuery>;
+export type GetOccupancyByDayQueryResult = Apollo.QueryResult<GetOccupancyByDayQuery, GetOccupancyByDayQueryVariables>;
 
       export interface PossibleTypesResultData {
         possibleTypes: {
