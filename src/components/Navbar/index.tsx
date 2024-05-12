@@ -34,17 +34,14 @@ const Navbar = async () => {
                 src='https://t4.ftcdn.net/jpg/04/92/72/37/360_F_492723759_RVbG37GeTbulDZJV2wdZJ9MHyTJs5Kbm.jpg'
                 alt=''
                 style={{
-                  mixBlendMode: "multiply",
                   width: "80px",
                   height: "50px",
                 }}
               />
-              <h2 className='text-xl font-bold text-rose_pompadour-300'>
-                Son Duyuru:
-              </h2>
+              <h2 className='text-xl font-bold text-[#151D48]'>Son Duyuru:</h2>
             </div>
 
-            <h2 className='text-lg font-bold text-rose_pompadour-500'>
+            <h2 className='text-lg font-bold text-[#425166]'>
               {announcements[0].title}
             </h2>
           </div>
@@ -67,7 +64,7 @@ const Navbar = async () => {
             </div>
             <a
               href='/#announcements'
-              className='whitespace-nowrap text-sm font-semibold text-zinc-300 transition-colors hover:text-zinc-50 sm:text-base'
+              className='whitespace-nowrap text-sm font-semibold text-zinc-400 transition-colors hover:text-[#151D48] sm:text-base'
             >
               Duyurular
             </a>

@@ -1,4 +1,5 @@
 import React from "react";
+import Card from "../Card";
 
 interface FooterItemProps {
   title: string;
@@ -9,8 +10,8 @@ interface FooterItemProps {
 const FooterItem = ({ title, content, link }: FooterItemProps) => {
   return (
     <div>
-      <div className='font-bold text-zinc-200'>{title}</div>
-      <div className='text-sm text-zinc-100'>
+      <div className='font-bold text-[#151D48]'>{title}</div>
+      <div className='text-sm text-[#425166]'>
         {link ? <a href={link + ":" + content}>{content}</a> : content}
       </div>
     </div>
@@ -42,9 +43,12 @@ const Footer = () => {
   ));
 
   return (
+    <Card>
+
+
     <div
-      className='flex w-full flex-col gap-8 border-t border-t-light_blue-600 p-4 sm:flex-row sm:p-6'
-      style = {{background: 'linear-gradient(to right, #7120f5,#a066ff)'}}
+      className='flex w-full flex-col gap-8  p-4 sm:flex-row sm:p-6'
+      
     >
       <div className=' flex w-full flex-col gap-4 '>{footerElements}</div>
       <iframe
@@ -55,6 +59,7 @@ const Footer = () => {
         loading='lazy'
       ></iframe>
     </div>
+    </Card>
   );
 };
 

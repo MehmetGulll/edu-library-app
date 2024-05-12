@@ -17,7 +17,7 @@ const OpenWeather = async () => {
           }}
         />
 
-        <div className="font-bold text-rose_pompadour-300">İzmir: {(temp.main.temp - 273).toFixed(0)}°</div>
+        <div className="font-bold text-[#151D48]">İzmir: {(temp.main.temp - 273).toFixed(0)}°</div>
       </div>
     </div>
   );
