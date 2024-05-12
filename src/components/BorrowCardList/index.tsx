@@ -9,14 +9,14 @@ interface BorrowCardListProps {
 }
 
 const BorrowCardList = ({ borrows }: BorrowCardListProps) => {
-  const colors = [ "#DCFCE7", "#F3E8FF", "#FFE2E5", "#FFF4DE",'#CDe7ff'];
+  const colors = ["#DCFCE7", "#F3E8FF", "#FFE2E5", "#FFF4DE", "#CDe7ff"];
   let colorIndex = 0;
 
   const groupedBorrows = [];
-  for(let i = 0; i<borrows.length; i+=12){
-    groupedBorrows.push(borrows.slice(i,i+12));
+  for (let i = 0; i < borrows.length; i += 4) {
+    groupedBorrows.push(borrows.slice(i, i + 4));
   }
-  
+
   return (
     <MantineProvider>
       <Carousel
@@ -35,15 +35,13 @@ const BorrowCardList = ({ borrows }: BorrowCardListProps) => {
         dragFree
         controlsOffset={"0px"}
       >
-       {groupedBorrows.map((group, index) => (
+        {groupedBorrows.map((group, index) => (
           <Carousel.Slide key={index}>
-            <div className='grid grid-cols-4 gap-8'>
+            <div className='grid grid-cols-2 gap-8'>
               {group.map((borrow) => {
                 const color = colors[colorIndex];
                 colorIndex = (colorIndex + 1) % colors.length;
-                return (
-                  <BorrowCard {...borrow} key={borrow.id} color={color} />
-                );
+                return <BorrowCard {...borrow} key={borrow.id} color={color} />;
               })}
             </div>
           </Carousel.Slide>

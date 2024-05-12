@@ -7,6 +7,7 @@ import CategoryChart from "@/components/CategoryChart";
 import { getLibraryData } from "../../../utils/getLibraryData";
 import BorrowCardList from "@/components/BorrowCardList";
 import Card from "@/components/Card";
+import AnnouncementList from "@/components/AnnouncementList";
 
 export default async function DatePage({
   params,
@@ -15,7 +16,20 @@ export default async function DatePage({
 }) {
   const { occupancy } = await getOccupancyByDay(params.date);
   const borrow = await getBorrowByDay(params.date);
-  const colors = ["#7F00FF", "#0F52BA", "#0096FF", "#FF69B4", "#FF5F15"];
+  const categoryColors = [
+    "#7F00FF",
+    "#0F52BA",
+    "#0096FF",
+    "#FF69B4",
+    "#FF5F15",
+  ];
+  const announcementColors = [
+    "#DCFCE7",
+    "#F3E8FF",
+    "#FFE2E5",
+    "#FFF4DE",
+    "#CDe7ff",
+  ];
   let colorIndex = 0;
   const transformedBorrows = borrow.borrow.map((b, index) => ({
     id: b.id,
@@ -25,10 +39,10 @@ export default async function DatePage({
     category: b.category,
     language: b.language,
     shelf_number: b.shelf_number,
-    color: colors[index % colors.length],
+    color: categoryColors[index % categoryColors.length],
   }));
 
-  colorIndex = (colorIndex + 1) % colors.length;
+  colorIndex = (colorIndex + 1) % categoryColors.length;
 
   const { categoryCounts } = await getLibraryData(borrow);
 
@@ -42,78 +56,97 @@ export default async function DatePage({
   const { announcements } = await getLatestAnnouncements();
 
   const announcementsFiltered = announcements.filter(
-    (announcement) => announcement.date === params.date
+    (announcement) =>
+      announcement.date === params.date.split("-").reverse().join(".")
   );
 
+  const latestOccupancy = occupancySorted[occupancySorted.length - 1];
+
   return (
-    <div className='p-4'>
+    <>
       <div className=' flex justify-center'>
         <h1 className='mb-1 text-2xl font-bold text-[#151D48] '>
           {params.date} Tarihindeki Doluluk Oranları
         </h1>
       </div>
-
-      <div className='mt-5 flex w-full flex-wrap gap-8'>
-        <Card className='w-full lg:w-[calc(75%-32px)]'>
-          <HourChart occupancy={occupancySorted} />
-        </Card>
-        <Card className='flex w-full items-center lg:w-1/4'>
-          <GradientRadialBar value={29} />
-        </Card>
-      </div>
-
-      {transformedBorrows.length !== 0 && (
-        <div className='my-8 mb-8 flex w-full flex-wrap gap-2'>
-          <Card>
-            <CategoryChart
-              categories={categoryCounts.map(({ name }) => name)}
-              counts={categoryCounts.map(({ data }) => data)}
-            />
-          </Card>
-
-          <Card className='w-full lg:w-[calc(66%-32px)]'>
-            <div className='flex justify-center'>
-              <h2 className='mb-1 text-2xl font-bold text-[#151D48]'>
-                Ödünç Kitaplar
-              </h2>
-            </div>
-
-            <div className='mt-5 flex gap-4'>
-              <BorrowCardList borrows={transformedBorrows} />
-            </div>
-          </Card>
-        </div>
-      )}
-      {announcementsFiltered.length !== 0 && (
-        <div
-          id='announcements'
-          className='flex flex-col justify-center gap-4 rounded-lg border border-gray-300 p-8  shadow-md'
-        >
-          <h2 className='text-2xl font-bold text-rose_pompadour-500'>
-            Duyurular
+      {occupancy.length === 0 ? (
+        <div className='flex justify-center'>
+          <h2 className='text-xl font-bold text-[#05004E]'>
+            Bu tarihe ait veri bulunamadı
           </h2>
-          <div className='flex flex-wrap gap-4'>
-            {announcementsFiltered.map(
-              ({ title, description, link, date, content }) => {
-                const color = colors[colorIndex];
-                colorIndex = (colorIndex + 1) % colors.length;
-
-                return (
-                  <AnnouncementCard
-                    key={title}
-                    title={title}
-                    description={description}
-                    link={link}
-                    date={date}
-                    content={content}
-                    style={{ backgroundColor: color }}
-                  />
-                );
-              }
-            )}
-          </div>
         </div>
+      ) : (
+        <>
+          <div className='mt-5 flex w-full flex-wrap gap-8'>
+            <Card className='w-full lg:w-[calc(75%-32px)]'>
+              <HourChart occupancy={occupancySorted} />
+            </Card>
+            <Card className='flex w-full items-center lg:w-1/4'>
+              <GradientRadialBar
+                value={Math.round(latestOccupancy.current / 1250) * 100}
+              />
+            </Card>
+          </div>
+          <>
+            {transformedBorrows.length !== 0 &&
+              announcementsFiltered.length === 0 && (
+                <div className='my-8 mb-8 flex w-full flex-wrap gap-8'>
+                  <Card className='w-full lg:w-1/3'>
+                    <CategoryChart
+                      categories={categoryCounts.map(({ name }) => name)}
+                      counts={categoryCounts.map(({ data }) => data)}
+                    />
+                  </Card>
+
+                  <Card className='w-full lg:w-[calc(66%-32px)]'>
+                    <div>
+                      <div className='flex justify-center'>
+                        <h2 className='mb-10 text-xl font-bold text-[#05004E]'>
+                          Ödünç Kitaplar
+                        </h2>
+                      </div>
+                      <BorrowCardList borrows={transformedBorrows} />
+                    </div>
+                  </Card>
+                </div>
+              )}
+            {announcementsFiltered.length !== 0 && (
+              <Card>
+                <div
+                  id='announcements'
+                  className='flex flex-col justify-center gap-4 '
+                >
+                  <div className='items-center justify-center'>
+                    <h2 className='text-xl font-bold text-[#05004E] '>
+                      Günün Duyuruları
+                    </h2>
+                  </div>
+                  <div className='flex flex-wrap gap-8'>
+                    {announcementsFiltered.map(
+                      ({ title, description, link, date, content }) => {
+                        const color = announcementColors[colorIndex];
+                        colorIndex =
+                          (colorIndex + 1) % announcementColors.length;
+                        return (
+                          <AnnouncementCard
+                            key={title}
+                            title={title}
+                            description={description}
+                            link={link}
+                            date={date}
+                            content={content}
+                            style={{ backgroundColor: color }}
+                          />
+                        );
+                      }
+                    )}
+                  </div>
+                </div>
+              </Card>
+            )}
+          </>
+        </>
       )}
-    </div>
+    </>
   );
 }

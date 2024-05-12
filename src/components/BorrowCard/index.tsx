@@ -2,7 +2,6 @@ import { Borrow } from "@/generated/graphql";
 import { Tooltip } from "@mantine/core";
 
 export interface BorrowCardProps extends Borrow {
-  id: number;
   name: string;
   author: string;
   date: string;
@@ -13,7 +12,6 @@ export interface BorrowCardProps extends Borrow {
 }
 
 const BorrowCard = ({
-  id,
   name,
   author,
   category,
@@ -22,20 +20,21 @@ const BorrowCard = ({
 }: BorrowCardProps) => {
   return (
     <div
-      key={id}
-      className='shadow-xs flex flex-col gap-1 rounded-lg p-5'
+      className='shadow-xs gap-1 rounded-lg p-5'
       style={{ backgroundColor: color }}
     >
       <Tooltip label={name}>
-        <div className='mb-1 truncate text-lg font-semibold text-[#151D48]'>
+        <div className=' truncate text-lg font-semibold text-[#151D48]'>
           {name}
         </div>
       </Tooltip>
       <Tooltip label={date}>
-        <div className='mb-1 text-sm text-[#4079ED]'>{date}</div>
+        <div className='mb-2 text-sm text-[#4079ED]'>{date}</div>
       </Tooltip>
       <Tooltip label={author}>
-        <div className='text-sm text-[#425166]'>{author}</div>
+        <div className='truncate text-sm text-[#425166]'>
+          {author.length > 0 ? author : "Bilinmiyor"}
+        </div>
       </Tooltip>
       <Tooltip label={category}>
         <div className='mb-1 truncate text-sm  font-semibold text-[#151D48]'>

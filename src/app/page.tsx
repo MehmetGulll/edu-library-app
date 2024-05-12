@@ -50,36 +50,34 @@ export default async function Home() {
 
   return (
     <>
-      <div className='flex w-full flex-wrap gap-8 my-8'>
-        <Card className='w-full lg:w-[calc(75%-32px)]'>
-          <HourChart occupancy={occupancySorted} />
+      <div className='flex w-full flex-wrap gap-8'>
+        <Card className='w-full scroll-mr-8 overflow-auto lg:w-[calc(75%-32px)]'>
+          <div className='w-full min-w-[720px]'>
+            <HourChart occupancy={occupancySorted} />
+          </div>
         </Card>
-        <Card className='flex w-full items-center lg:w-1/4'>
-          <GradientRadialBar value={29} />
+        <Card className=' w-full items-center lg:w-1/4'>
+          <GradientRadialBar
+            value={
+              Math.round(
+                occupancySorted[occupancySorted.length - 1].current / 1250
+              ) * 100
+            }
+          />
         </Card>
       </div>
-      <div className='flex justify-center'>
-        <h2 className='mb-1 text-2xl font-bold text-[#151D48]'>
-          Günlere Ait Doluluk
-        </h2>
-      </div>
-      <DateCardList occupancies={occupancyWithDetails} />
+      <h2 className='mx-auto mt-4 text-xl font-bold text-[#05004E]'>
+        Günlere Ait Doluluk
+      </h2>
+      <DateCardList occupancies={[...occupancyWithDetails].reverse()} />
       <AnnouncementList />
-      
 
-     
-      <div className='mt-8 flex flex-col justify-center items-center gap-4  p-8'>
-        <h2 className='mb-1 text-2xl font-bold text-[#151D48]'>
-          2024 Yılı Ödünç Kitap ve Doluluk Oranları
-        </h2>
-        <div className='flex w-full flex-wrap gap-2'>
-          <div
-            className='w-full  lg:w-[calc(66%-32px)]'
-            
-          >
-            <Card>
-
-          
+      <h2 className='mx-auto mt-4 text-xl font-bold text-[#05004E]'>
+        2024 Yılı Ödünç Kitap ve Doluluk Oranları
+      </h2>
+      <div className='flex w-full flex-wrap gap-8'>
+        <Card className='w-full overflow-auto lg:w-[calc(66%-32px)]'>
+          <div className='w-full min-w-[720px]'>
             <BorrowAndOccupancyChart
               dates={occuppancyFiltered.map((item) =>
                 item.date.split("-").reverse().join(".")
@@ -87,25 +85,15 @@ export default async function Home() {
               borrow={counts}
               occupancy={occuppancyFiltered.map(({ total }) => total)}
             />
-              </Card>
           </div>
-
-          <div
-            className='w-full  lg:w-1/3'
-            style={{ backgroundColor: "#F0FFFF" }}
-          >
-            <Card>
-
-          
-            <CategoryChart
-              categories={categoryCounts.map(({ name }) => name)}
-              counts={categoryCounts.map(({ data }) => data)}
-            />
-              </Card>
-          </div>
-        </div>
+        </Card>
+        <Card className='w-full lg:w-1/3'>
+          <CategoryChart
+            categories={categoryCounts.map(({ name }) => name)}
+            counts={categoryCounts.map(({ data }) => data)}
+          />
+        </Card>
       </div>
-      
     </>
   );
 }
