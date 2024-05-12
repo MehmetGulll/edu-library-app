@@ -8,16 +8,15 @@ interface AnnouncementCardProps {
   description: string;
   link: string;
   content: string | null;
-  style : {backgroundColor : string};
+  style: { backgroundColor: string };
 }
 
 const AnnouncementCard = ({
   title,
   date,
   description,
-  link,
   content,
-  style
+  style,
 }: AnnouncementCardProps) => {
   const [opened, setOpened] = React.useState(false);
 
@@ -31,18 +30,17 @@ const AnnouncementCard = ({
 
   return (
     <>
-  
       <div
-        className='w-full cursor-pointer rounded-xl shadow-xs transition-colors hover:bg-gray-100 sm:w-[calc(50%-32px)]  md:w-[calc(25%-32px)] p-5'
+        className='shadow-xs w-full cursor-pointer rounded-xl p-5 transition-colors hover:bg-gray-100  sm:w-[calc(50%-32px)] md:w-[calc(25%-32px)]'
         onClick={handleClick}
-        style = {style}
+        style={style}
       >
         <div className='mb-2 flex flex-col gap-1'>
           <div className=' whitespace-nowrap text-xs font-semibold '>
-            <div className='truncate text-lg font-semibold text-[#151D48] mb-1'>
+            <div className='mb-1 truncate text-lg font-semibold text-[#151D48]'>
               {title}
             </div>
-            <div className='text-[#4079ED] text-sm mb-1'>{date}</div>
+            <div className='mb-1 text-sm text-[#4079ED]'>{date}</div>
           </div>
         </div>
         <div className='mb-2 flex flex-col gap-1'>

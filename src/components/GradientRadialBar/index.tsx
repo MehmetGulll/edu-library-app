@@ -40,7 +40,7 @@ const GradientRadialBar = ({ value }: GradientRadialBarProps) => {
                     top: -3,
                     left: 0,
                     blur: 4,
-                    opacity: 0.35,
+                    opacity: 0.2,
                   },
                 },
 
@@ -70,14 +70,10 @@ const GradientRadialBar = ({ value }: GradientRadialBarProps) => {
                         show: true,
                         name: {
                           offsetY: 0,
-                          show: true,
-                          color: "#151D48",
                           fontSize: "12px",
                         },
                         value: {
-                          color: "#0095FF",
                           fontSize: "24px",
-                          show: true,
                         },
                       },
                     },

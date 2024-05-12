@@ -2,7 +2,7 @@
 import React from "react";
 import Chart from "../Chart";
 interface HourChartProps {
-  occupancy: { date: string; total: number }[];
+  occupancy: { date: string; current: number; total: number }[];
 }
 const HourChart = ({ occupancy }: HourChartProps) => {
   return (
@@ -11,14 +11,14 @@ const HourChart = ({ occupancy }: HourChartProps) => {
       width='100%'
       height='365px'
       options={{
-        colors: ["#49dcb1", "#000000"],
+        colors: ["#00E096", "#007DD6"],
         title: {
           text: "Saat Başı Toplam Doluluk",
           align: "center",
           style: {
             color: "#151D48",
             fontSize: "14px",
-            fontWeight:'600'
+            fontWeight: "600",
           },
         },
         tooltip: {
@@ -70,6 +70,23 @@ const HourChart = ({ occupancy }: HourChartProps) => {
           {
             title: {
               text: "Toplam Doluluk",
+              style: {
+                color: "#05004E",
+              },
+            },
+            labels: {
+              style: {
+                colors: "#7B91B0",
+              },
+            },
+          },
+          {
+            opposite: true,
+            title: {
+              text: "Anlık Doluluk",
+              style: {
+                color: "#05004E",
+              },
             },
             labels: {
               style: {
@@ -95,6 +112,10 @@ const HourChart = ({ occupancy }: HourChartProps) => {
         {
           name: "Toplam Doluluk",
           data: occupancy.map(({ total }) => total),
+        },
+        {
+          name: "Anlık Doluluk",
+          data: occupancy.map(({ current }) => current),
         },
       ]}
       loaderSize={24}

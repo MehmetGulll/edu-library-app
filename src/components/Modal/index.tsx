@@ -43,7 +43,7 @@ const Modal: FC<ModalProps> = ({ opened, onClose, children }) => {
       <div className='relative top-1/2 mx-auto  -translate-y-1/2 transform sm:max-w-[60%]'>
         <button
           type='button'
-          className='absolute right-4 top-2 rounded-lg text-black transition-colors hover:bg-rose_pompadour-500 hover:text-white sm:right-2'
+          className='absolute right-4 top-2 rounded-lg text-black transition-colors hover:bg-[#FFE2E5] hover:text-[#FA5A7D] sm:right-2'
           onClick={onClose}
         >
           <IconX />

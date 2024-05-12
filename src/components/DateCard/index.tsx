@@ -7,22 +7,20 @@ export interface DateCardProps extends Occupancy {
   details: Occupancy[];
 }
 
-const DateCard = ({ date, current, total, details }: DateCardProps) => {
+const DateCard = ({ date, total, details }: DateCardProps) => {
   return (
-    <Card>
+    <Card className='cursor-pointer hover:bg-[#F8F9FA]'>
       <Link href={`/${date}`} className='flex flex-col'>
-        <div className='flex justify-center gap-1 [&>div:last-child]:!min-h-[80px] '>
+        <div className='flex justify-center gap-1 [&>div:last-child]:!min-h-[80px]'>
           <div>
-            <div className='flex flex-col gap-1'>
-              <div
-                className='text-lg font-semibold'
-                style={{ color: "#2e3134" }}
-              >
-                {date.split("-").reverse().join(".")}
-              </div>
+            <div
+              className='mb-2 text-lg font-semibold'
+              style={{ color: "#2e3134" }}
+            >
+              {date.split("-").reverse().join(".")}
             </div>
             <div className='flex gap-6'>
-              <div className='flex flex-col gap-1'>
+              <div className='flex flex-col'>
                 <div className='font-semibold text-[#202224] opacity-70'>
                   Toplam:
                 </div>
@@ -31,7 +29,7 @@ const DateCard = ({ date, current, total, details }: DateCardProps) => {
             </div>
           </div>
           <Chart
-            type='line'
+            type='area'
             width='100%'
             height='80px'
             options={{
@@ -52,7 +50,20 @@ const DateCard = ({ date, current, total, details }: DateCardProps) => {
               markers: {
                 size: 0,
               },
-              colors: ["#000000"],
+              fill: {
+                type: "gradient",
+                gradient: {
+                  shadeIntensity: 1,
+                  inverseColors: false,
+                  opacityFrom: 0.45,
+                  opacityTo: 0.05,
+                  stops: [0, 100],
+                },
+              },
+              dataLabels: {
+                enabled: false,
+              },
+              colors: ["#007DD6"],
               xaxis: {
                 tooltip: {
                   enabled: false,
@@ -93,7 +104,7 @@ const DateCard = ({ date, current, total, details }: DateCardProps) => {
                 data:
                   details.length === 1
                     ? Array.from({ length: 7 }, () => 0)
-                    : details.map((d) => d.total),
+                    : details.map((d) => d.current),
               },
             ]}
             loaderSize={24}

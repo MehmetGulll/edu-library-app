@@ -11,7 +11,7 @@ const Navbar = async () => {
         <div className='relative mb-8 flex w-full flex-row items-center justify-center gap-4 rounded-xl bg-white p-8 md:justify-between'>
           <OpenWeather />
 
-          <div className='hidden rounded-lg bg-[#5D5FEF] text-white md:block'>
+          <div className='hidden rounded-lg bg-[#4079ED] text-white md:block'>
             <OccupancyCard />
           </div>
           <Link
@@ -24,13 +24,13 @@ const Navbar = async () => {
             <div>KITAPLA</div>
           </Link>
           <div className='hidden items-center gap-4 md:flex'>
-            <div className='rounded-lg bg-[#5D5FEF]  text-white transition-colors hover:bg-[#4079ED]'>
+            <div className='rounded-lg bg-[#4079ED] text-white transition-colors hover:bg-[#6993FF]'>
               <WorkingHours />
             </div>
             <a
               href='/#announcements'
               className='whitespace-nowrap text-sm font-semibold text-[#151D48] transition-colors 
-              hover:text-[#5D5FEF] sm:text-base'
+              hover:text-[#4079ED] sm:text-base'
             >
               Duyurular
             </a>
