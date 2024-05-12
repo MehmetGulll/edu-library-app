@@ -31,21 +31,22 @@ const AnnouncementCard = ({
 
   return (
     <>
+  
       <div
-        className='w-full cursor-pointer rounded-xl border border-gray-300 p-2 px-4 shadow-md transition-colors hover:bg-gray-100 sm:w-[calc(50%-16px)]  md:w-[calc(25%-16px)]'
+        className='w-full cursor-pointer rounded-xl shadow-xs transition-colors hover:bg-gray-100 sm:w-[calc(50%-32px)]  md:w-[calc(25%-32px)] p-5'
         onClick={handleClick}
         style = {style}
       >
         <div className='mb-2 flex flex-col gap-1'>
           <div className=' whitespace-nowrap text-xs font-semibold '>
-            <div className='truncate text-lg font-semibold text-zinc-50'>
+            <div className='truncate text-lg font-semibold text-[#151D48] mb-1'>
               {title}
             </div>
-            <div className='text-zinc-300'>{date}</div>
+            <div className='text-[#4079ED] text-sm mb-1'>{date}</div>
           </div>
         </div>
         <div className='mb-2 flex flex-col gap-1'>
-          <div className='line-clamp-2 text-xs text-zinc-200'>
+          <div className='line-clamp-2 text-sm text-[#425166]'>
             {description}
           </div>
         </div>

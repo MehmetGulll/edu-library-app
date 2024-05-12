@@ -13,7 +13,7 @@ const CategoryChart = ({ categories, counts }: CategoryChartPros) => {
       height={350}
       type='pie'
       options={{
-        colors: ["#7F00FF", "#0F52BA", "#0096FF", "#FF69B4", "#FF5F15"],
+        colors: ["#FA5A7D", "#FF947A", "#BF83FF", "#0095FF", "#00E096"],
         labels: categories,
         title: {
           text: "Ödünç Alınan Kitapların Kategori Dağılımı",
@@ -21,8 +21,9 @@ const CategoryChart = ({ categories, counts }: CategoryChartPros) => {
           margin: 20,
           offsetY: -10,
           style: {
-            color: "#e27396",
+            color: "#151D48",
             fontSize: "14px",
+            fontWeight: "600",
           },
         },
         responsive: [

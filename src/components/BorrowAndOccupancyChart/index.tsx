@@ -22,8 +22,9 @@ const BorrowAndOccupancyChart = ({
           text: "Ödünç Alınan Kitap Sayısı ve Toplam Doluluk",
           align: "center",
           style: {
-            color: "#e27396",
+            color: "#151D48",
             fontSize: "14px",
+            fontWeight:'600'
           },
         },
         responsive: [

@@ -9,7 +9,7 @@ interface BorrowCardListProps {
 }
 
 const BorrowCardList = ({ borrows }: BorrowCardListProps) => {
-  const colors = ["#7F00FF", "#0F52BA", "#0096FF", "#FF69B4", "#FF5F15"];
+  const colors = [ "#DCFCE7", "#F3E8FF", "#FFE2E5", "#FFF4DE",'#CDe7ff'];
   let colorIndex = 0;
 
   const groupedBorrows = [];
@@ -37,7 +37,7 @@ const BorrowCardList = ({ borrows }: BorrowCardListProps) => {
       >
        {groupedBorrows.map((group, index) => (
           <Carousel.Slide key={index}>
-            <div className='grid grid-cols-4 gap-4'>
+            <div className='grid grid-cols-4 gap-8'>
               {group.map((borrow) => {
                 const color = colors[colorIndex];
                 colorIndex = (colorIndex + 1) % colors.length;
