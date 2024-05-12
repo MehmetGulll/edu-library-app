@@ -31,6 +31,7 @@ const AnnouncementCard = ({
 
   return (
     <>
+  
       <div
         className='w-full cursor-pointer rounded-xl shadow-xs transition-colors hover:bg-gray-100 sm:w-[calc(50%-32px)]  md:w-[calc(25%-32px)] p-5'
         onClick={handleClick}

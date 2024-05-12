@@ -6,6 +6,7 @@ import AnnouncementCard from "@/components/AnnouncementCard";
 import CategoryChart from "@/components/CategoryChart";
 import { getLibraryData } from "../../../utils/getLibraryData";
 import BorrowCardList from "@/components/BorrowCardList";
+import Card from "@/components/Card";
 
 export default async function DatePage({
   params,
@@ -70,23 +71,24 @@ export default async function DatePage({
           />
         </div>
       </div>
+
       {transformedBorrows.length !== 0 && (
         <div className='mb-8 flex w-full flex-wrap gap-2'>
-          <div
-            className='w-full rounded-xl border border-gray-300 p-2 shadow-md lg:w-1/3'
-            style={{ backgroundColor: "#F0FFFF" }}
-          >
-            <CategoryChart
-              categories={categoryCounts.map(({ name }) => name)}
-              counts={categoryCounts.map(({ data }) => data)}
-            />
-          </div>
-          <div
-            className='w-full rounded-xl border border-gray-300 p-2 shadow-md lg:w-[calc(66%-8px)]'
-            style={{ backgroundColor: "#F0FFFF" }}
+          <Card>
+            
+              <CategoryChart
+                categories={categoryCounts.map(({ name }) => name)}
+                counts={categoryCounts.map(({ data }) => data)}
+              />
+      
+          </Card>
+        
+          <Card
+            className='w-full lg:w-[calc(66%-32px)]'
+         
           >
             <div className='flex justify-center'>
-              <h2 className='text-2xl font-bold text-rose_pompadour-500'>
+              <h2 className='mb-1 text-2xl font-bold text-[#151D48]'>
                 Ödünç Kitaplar
               </h2>
             </div>
@@ -94,7 +96,8 @@ export default async function DatePage({
             <div className='mt-5 flex gap-4'>
               <BorrowCardList borrows={transformedBorrows} />
             </div>
-          </div>
+          </Card>
+       
         </div>
       )}
       {announcementsFiltered.length !== 0 && (
