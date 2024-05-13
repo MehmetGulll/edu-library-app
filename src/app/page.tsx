@@ -13,6 +13,8 @@ export default async function Home() {
   const borrowData = await getBorrow();
   const { counts, categoryCounts } = await getLibraryData(borrowData);
   const occupancyArr = await getAllOccupancy();
+
+
   const occupancyWithoutHours = occupancyArr.occupancy.map((item) => {
     return {
       ...item,
@@ -29,6 +31,7 @@ export default async function Home() {
     const allOccupancyFromThatDate = occupancyArr.occupancy.filter(
       (occupancy) => occupancy.date.split("T")[0] === item.date
     );
+
     return {
       ...item,
       current:
@@ -47,6 +50,10 @@ export default async function Home() {
       .split(":")[0]
       .localeCompare(b.date.split("T")[1].split(":")[0]);
   });
+  const percentage = Math.ceil(
+    (occupancySorted[occupancySorted.length - 1].current / 1250) * 100
+  );
+
 
   return (
     <>
@@ -57,13 +64,7 @@ export default async function Home() {
           </div>
         </Card>
         <Card className=' w-full items-center lg:w-1/4'>
-          <GradientRadialBar
-            value={
-              Math.round(
-                occupancySorted[occupancySorted.length - 1].current / 1250
-              ) * 100
-            }
-          />
+          <GradientRadialBar value={percentage} />
         </Card>
       </div>
       <h2 className='mx-auto mt-4 text-xl font-bold text-[#05004E]'>
