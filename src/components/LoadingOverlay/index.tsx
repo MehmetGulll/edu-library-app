@@ -12,7 +12,7 @@ const LoadingOverlay = ({ size = 80 }: LoadingOverlayProps) => {
         className='absolute animate-spin rounded-full brightness-100'
         style={{
           border: `${border}px solid #f3f3f3`,
-          borderTop: `${border}px solid #e27396`,
+          borderTop: `${border}px solid #0095FF`,
           width: `${size}px`,
           height: `${size}px`,
           top: `calc(50% - ${size / 2}px)`,

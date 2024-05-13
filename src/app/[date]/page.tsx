@@ -7,7 +7,6 @@ import CategoryChart from "@/components/CategoryChart";
 import { getLibraryData } from "../../../utils/getLibraryData";
 import BorrowCardList from "@/components/BorrowCardList";
 import Card from "@/components/Card";
-import AnnouncementList from "@/components/AnnouncementList";
 
 export default async function DatePage({
   params,

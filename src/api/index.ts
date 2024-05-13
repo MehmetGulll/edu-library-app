@@ -29,7 +29,6 @@ export const getBorrowByDay = async (date: string) => {
     variables: {
       date,
     },
-    fetchPolicy: "network-only",
   });
 
   return data;
@@ -64,7 +63,6 @@ export const getCurrentOccupancy = async () => {
 export const getAllOccupancy = async () => {
   const { data } = await client.query<GetOccupancyQuery>({
     query: GetOccupancyDocument,
-    fetchPolicy: "network-only",
   });
 
   return data;
@@ -74,6 +72,8 @@ export const getOccupancyByDay = async (date: string) => {
   const today = new Date(date);
   const tomorrow = new Date(today);
   tomorrow.setDate(tomorrow.getDate() + 1);
+  const isDateToday = today.toDateString() === new Date().toDateString();
+
   const { data } = await client.query<GetOccupancyByDayQuery>({
     query: GetOccupancyByDayDocument,
     variables: {
@@ -81,7 +81,7 @@ export const getOccupancyByDay = async (date: string) => {
       start: today,
       end: tomorrow.toISOString(),
     },
-    fetchPolicy: "network-only",
+    fetchPolicy: isDateToday ? "network-only" : "cache-first",
   });
 
   return data;

@@ -26,7 +26,11 @@ const getLatestAnnouncements = async () => {
   });
 
   const content = links.map(async (link, i) => {
-    const response = await fetch(link);
+    const response = await fetch(link, {
+      next: {
+        revalidate: 60 * 60 * 24,
+      },
+    });
     const $ = load(await response.text());
     const article = $("article");
     const date = article
