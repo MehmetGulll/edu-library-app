@@ -8,7 +8,7 @@ interface GradientRadialBarProps {
 const GradientRadialBar = ({ value }: GradientRadialBarProps) => {
   return (
     <div className='mx-auto flex h-full w-full items-center md:w-full lg:!w-full [@media(min-width:576px)]:w-2/3 [@media(min-width:992px)]:w-2/3'>
-      <div className='aspect-square w-full max-w-full'>
+      <div className='aspect-square max-h-[350px] w-full max-w-full'>
         <Chart
           type='radialBar'
           height='100%'

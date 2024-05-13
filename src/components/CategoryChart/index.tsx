@@ -8,42 +8,61 @@ interface CategoryChartPros {
 
 const CategoryChart = ({ categories, counts }: CategoryChartPros) => {
   return (
-    <Chart
-      width='100%'
-      height={350}
-      type='pie'
-      options={{
-        colors: ["#FA5A7D", "#FF947A", "#BF83FF", "#0095FF", "#00E096"],
-        labels: categories,
-        title: {
-          text: "Ödünç Alınan Kitapların Kategori Dağılımı",
-          align: "center",
-          margin: 20,
-          offsetY: -10,
-          style: {
-            color: "#151D48",
-            fontSize: "14px",
-            fontWeight: "600",
-          },
-        },
-        responsive: [
-          {
-            breakpoint: 640,
-            options: {
-              title: {
-                style: {
-                  fontSize: "10px",
+    <div className='mx-auto flex h-full w-full flex-col items-center md:w-full lg:!w-full [@media(min-width:576px)]:w-2/3 [@media(min-width:992px)]:w-2/3'>
+      <div className='mb-2 text-xs font-semibold text-[#151D48]'>
+        Ödünç Alınan Kitapların Kategori Dağılımı
+      </div>
+      <div className='flex h-[calc(100%-24px)] items-center'>
+        <div className='aspect-square max-h-[350px] w-full max-w-full items-center'>
+          <Chart
+            width='100%'
+            height='100%'
+            type='pie'
+            options={{
+              colors: ["#FA5A7D", "#FF947A", "#BF83FF", "#0095FF", "#00E096"],
+              labels: categories,
+
+              responsive: [
+                {
+                  breakpoint: 1140,
+                  options: {
+                    title: {
+                      style: {
+                        fontSize: "12px",
+                      },
+                    },
+                  },
                 },
+                {
+                  breakpoint: 1140,
+                  options: {
+                    title: {
+                      style: {
+                        fontSize: "14px",
+                      },
+                    },
+                  },
+                },
+                {
+                  breakpoint: 640,
+                  options: {
+                    title: {
+                      style: {
+                        fontSize: "10px",
+                      },
+                    },
+                  },
+                },
+              ],
+              legend: {
+                show: false,
               },
-            },
-          },
-        ],
-        legend: {
-          show: false,
-        },
-      }}
-      series={counts}
-    />
+            }}
+            series={counts}
+          />
+        </div>
+      </div>
+    </div>
   );
 };
 
