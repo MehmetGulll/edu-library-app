@@ -59,8 +59,11 @@ export default async function DatePage({
       announcement.date === params.date.split("-").reverse().join(".")
   );
 
-  const latestOccupancy = occupancySorted[occupancySorted.length - 1];
-
+ 
+  const percentage = Math.ceil(
+    (occupancySorted[occupancySorted.length - 1].current / 1250) * 100
+  );
+  console.log(percentage);
   return (
     <>
       <div className=' flex justify-center'>
@@ -76,13 +79,15 @@ export default async function DatePage({
         </div>
       ) : (
         <>
-          <div className='mt-5 flex w-full flex-wrap gap-8'>
-            <Card className='w-full lg:w-[calc(75%-32px)]'>
-              <HourChart occupancy={occupancySorted} />
+          <div className='flex w-full flex-wrap gap-8'>
+            <Card className='w-full scroll-mr-8 overflow-auto lg:w-[calc(75%-32px)]'>
+              <div className='w-full min-w-[720px]'>
+                <HourChart occupancy={occupancySorted} />
+              </div>
             </Card>
-            <Card className='flex w-full items-center lg:w-1/4'>
+            <Card className=' w-full items-center lg:w-1/4'>
               <GradientRadialBar
-                value={Math.round(latestOccupancy.current / 1250) * 100}
+                value={percentage}
               />
             </Card>
           </div>
