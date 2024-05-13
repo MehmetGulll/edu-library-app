@@ -21,39 +21,6 @@ const CategoryChart = ({ categories, counts }: CategoryChartPros) => {
             options={{
               colors: ["#FA5A7D", "#FF947A", "#BF83FF", "#0095FF", "#00E096"],
               labels: categories,
-
-              responsive: [
-                {
-                  breakpoint: 1140,
-                  options: {
-                    title: {
-                      style: {
-                        fontSize: "12px",
-                      },
-                    },
-                  },
-                },
-                {
-                  breakpoint: 1140,
-                  options: {
-                    title: {
-                      style: {
-                        fontSize: "14px",
-                      },
-                    },
-                  },
-                },
-                {
-                  breakpoint: 640,
-                  options: {
-                    title: {
-                      style: {
-                        fontSize: "10px",
-                      },
-                    },
-                  },
-                },
-              ],
               legend: {
                 show: false,
               },
